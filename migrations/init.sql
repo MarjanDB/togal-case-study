@@ -3,34 +3,34 @@ CREATE DATABASE app;
 \c app
 
 
--- public.stored_document definition
+-- public.stored_documents definition
 
 -- Drop table
 
--- DROP TABLE public.stored_document;
+-- DROP TABLE public.stored_documents;
 
-CREATE TABLE public.stored_document (
+CREATE TABLE public.stored_documents (
 	id uuid NOT NULL,
 	hash text NOT NULL,
 	stored_at timestamptz NOT NULL,
 	"data" bytea NOT NULL,
 	original_file_name text NOT NULL,
-	CONSTRAINT stored_document_pk PRIMARY KEY (id)
+	CONSTRAINT stored_documents_pk PRIMARY KEY (id)
 );
 
 -- Permissions
 
-ALTER TABLE public.stored_document OWNER TO postgres;
-GRANT ALL ON TABLE public.stored_document TO postgres;
+ALTER TABLE public.stored_documents OWNER TO postgres;
+GRANT ALL ON TABLE public.stored_documents TO postgres;
 
 
--- public.virtual_document definition
+-- public.virtual_documents definition
 
 -- Drop table
 
--- DROP TABLE public.virtual_document;
+-- DROP TABLE public.virtual_documents;
 
-CREATE TABLE public.virtual_document (
+CREATE TABLE public.virtual_documents (
 	id uuid NOT NULL,
 	"name" text NOT NULL,
 	description text NULL,
@@ -38,74 +38,74 @@ CREATE TABLE public.virtual_document (
 	created_at timestamptz NOT NULL,
 	deleted_at timestamptz NULL,
 	"type" text NOT NULL,
-	CONSTRAINT virtual_document_pk PRIMARY KEY (id)
+	CONSTRAINT virtual_documents_pk PRIMARY KEY (id)
 );
 
 -- Permissions
 
-ALTER TABLE public.virtual_document OWNER TO postgres;
-GRANT ALL ON TABLE public.virtual_document TO postgres;
+ALTER TABLE public.virtual_documents OWNER TO postgres;
+GRANT ALL ON TABLE public.virtual_documents TO postgres;
 
 
--- public.virtual_folder definition
+-- public.virtual_folders definition
 
 -- Drop table
 
--- DROP TABLE public.virtual_folder;
+-- DROP TABLE public.virtual_folders;
 
-CREATE TABLE public.virtual_folder (
+CREATE TABLE public.virtual_folders (
 	id uuid NOT NULL,
 	"name" text NOT NULL,
 	created_at timestamptz NOT NULL,
 	updated_at timestamptz NOT NULL,
 	deleted_at timestamptz NULL,
-	CONSTRAINT virtual_folder_pk PRIMARY KEY (id)
+	CONSTRAINT virtual_folders_pk PRIMARY KEY (id)
 );
 
 -- Permissions
 
-ALTER TABLE public.virtual_folder OWNER TO postgres;
-GRANT ALL ON TABLE public.virtual_folder TO postgres;
+ALTER TABLE public.virtual_folders OWNER TO postgres;
+GRANT ALL ON TABLE public.virtual_folders TO postgres;
 
 
--- public.virtual_document_stored_documents definition
+-- public.virtual_documents_stored_documents definition
 
 -- Drop table
 
--- DROP TABLE public.virtual_document_stored_documents;
+-- DROP TABLE public.virtual_documents_stored_documents;
 
-CREATE TABLE public.virtual_document_stored_documents (
-	stored_document uuid NOT NULL,
-	virtual_document uuid NOT NULL,
-	CONSTRAINT virtual_document_stored_documents_pk PRIMARY KEY (stored_document, virtual_document),
-	CONSTRAINT virtual_document_stored_documents_stored_document_fk FOREIGN KEY (stored_document) REFERENCES public.stored_document(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT virtual_document_stored_documents_virtual_document_fk FOREIGN KEY (virtual_document) REFERENCES public.virtual_document(id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE public.virtual_documents_stored_documents (
+	stored_documents uuid NOT NULL,
+	virtual_documents uuid NOT NULL,
+	CONSTRAINT virtual_documents_stored_documents_pk PRIMARY KEY (stored_documents, virtual_documents),
+	CONSTRAINT virtual_documents_stored_documents_stored_documents_fk FOREIGN KEY (stored_documents) REFERENCES public.stored_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT virtual_documents_stored_documents_virtual_documents_fk FOREIGN KEY (virtual_documents) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Permissions
 
-ALTER TABLE public.virtual_document_stored_documents OWNER TO postgres;
-GRANT ALL ON TABLE public.virtual_document_stored_documents TO postgres;
+ALTER TABLE public.virtual_documents_stored_documents OWNER TO postgres;
+GRANT ALL ON TABLE public.virtual_documents_stored_documents TO postgres;
 
 
--- public.virtual_folder_virtual_documents definition
+-- public.virtual_folders_virtual_documents definition
 
 -- Drop table
 
--- DROP TABLE public.virtual_folder_virtual_documents;
+-- DROP TABLE public.virtual_folders_virtual_documents;
 
-CREATE TABLE public.virtual_folder_virtual_documents (
-	virtual_folder uuid NOT NULL,
-	virtual_document uuid NOT NULL,
-	CONSTRAINT virtual_folder_virtual_documents_pk PRIMARY KEY (virtual_folder, virtual_document),
-	CONSTRAINT virtual_folder_virtual_documents_virtual_document_fk FOREIGN KEY (virtual_document) REFERENCES public.virtual_document(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT virtual_folder_virtual_documents_virtual_folder_fk FOREIGN KEY (virtual_folder) REFERENCES public.virtual_folder(id) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE public.virtual_folders_virtual_documents (
+	virtual_folders uuid NOT NULL,
+	virtual_documents uuid NOT NULL,
+	CONSTRAINT virtual_folders_virtual_documents_pk PRIMARY KEY (virtual_folders, virtual_documents),
+	CONSTRAINT virtual_folders_virtual_documents_virtual_documents_fk FOREIGN KEY (virtual_documents) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT virtual_folders_virtual_documents_virtual_folders_fk FOREIGN KEY (virtual_folders) REFERENCES public.virtual_folders(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Permissions
 
-ALTER TABLE public.virtual_folder_virtual_documents OWNER TO postgres;
-GRANT ALL ON TABLE public.virtual_folder_virtual_documents TO postgres;
+ALTER TABLE public.virtual_folders_virtual_documents OWNER TO postgres;
+GRANT ALL ON TABLE public.virtual_folders_virtual_documents TO postgres;
 
 
 

@@ -1,10 +1,11 @@
 import { PostgresqlProviderModule } from "@backend/Providers/PostgresqlProvider/PostgresqlProvider.module";
-import { Global, Module } from "@nestjs/common";
+import { Global, Logger, Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 
 @Global()
 @Module({
-	imports: [PostgresqlProviderModule],
-	providers: [],
-	exports: [PostgresqlProviderModule],
+	imports: [PostgresqlProviderModule, ConfigModule.forRoot()],
+	providers: [Logger],
+	exports: [PostgresqlProviderModule, ConfigModule, Logger],
 })
 export class ProvidersModule {}

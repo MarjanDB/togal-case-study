@@ -10,7 +10,7 @@ async function prepare(): Promise<NestExpressApplication> {
 	return app;
 }
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
 	const app = await prepare();
 	const port = process.env.PORT || 3000;
 	await app.listen(port);

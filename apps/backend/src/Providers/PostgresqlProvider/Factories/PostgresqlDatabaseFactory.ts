@@ -1,7 +1,7 @@
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { PostgresqlDatabaseConfig } from "@backend/Providers/PostgresqlProvider/Contracts/PostgresqlDatabaseConfig";
 import { PostgresqlDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Providers/PostgresqlDatabaseProvider";
-import { Injectable, Logger, OnModuleDestroy } from "@nestjs/common";
+import { Inject, Injectable, Logger, OnModuleDestroy } from "@nestjs/common";
 import crypto from "crypto";
 import { DateTime } from "luxon";
 import pgp from "pg-promise";
@@ -11,7 +11,7 @@ export class PostgresqlDatabaseFactory implements OnModuleDestroy {
 	private readonly providers: Map<string, PostgresqlDatabaseProvider> = new Map<string, PostgresqlDatabaseProvider>();
 	private pgpConnectionFactory!: ReturnType<typeof pgp>;
 
-	constructor(private readonly logger: Logger) {
+	constructor(@Inject(Logger) private readonly logger: Logger) {
 		this.pgpConnectionFactory = pgp();
 
 		this.pgpConnectionFactory.pg.types.setTypeParser(this.pgpConnectionFactory.pg.types.builtins.INT8, (value: string) =>
@@ -31,7 +31,7 @@ export class PostgresqlDatabaseFactory implements OnModuleDestroy {
 		);
 	}
 
-	public async onModuleDestroy() {
+	public async onModuleDestroy(): Promise<void> {
 		const databaseInstances = Array.from(this.providers.values());
 		const databaseShutdownPromises = databaseInstances.map((db) => db.shutdown());
 		await Promise.allSettled(databaseShutdownPromises);

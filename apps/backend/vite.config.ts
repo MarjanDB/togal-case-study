@@ -1,4 +1,5 @@
 import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
+import UnpluginTypia from "@ryoppippi/unplugin-typia/vite";
 import { VitePluginNode } from "vite-plugin-node";
 import { defineConfig } from "vitest/config";
 
@@ -47,6 +48,7 @@ export default defineConfig({
 			// swc configs, see [swc doc](https://swc.rs/docs/configuration/swcrc)
 			swcOptions: {},
 		}),
+		UnpluginTypia(),
 	],
 	// Uncomment this if you are using workers.
 	// worker: {
@@ -63,5 +65,7 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: "node",
+		reporters: ["basic"],
+		disableConsoleIntercept: true,
 	},
 });
