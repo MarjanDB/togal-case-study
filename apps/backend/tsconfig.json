@@ -1,5 +1,10 @@
 {
 	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"tsBuildInfoFile": "out-tsc/backend/tsconfig.app.tsbuildinfo",
+		"module": "es2020",
+		"moduleResolution": "node"
+	},
 	"files": [],
 	"include": [],
 	"references": [

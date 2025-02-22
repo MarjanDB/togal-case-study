@@ -1,0 +1,31 @@
+{
+	"name": "backend",
+	"projectType": "application",
+	"sourceRoot": "apps/backend/src",
+	"targets": {
+		"build": {
+			"executor": "@nx/vite:build",
+			"options": {
+				"outputPath": "dist/apps/my-app"
+			}
+		},
+		"serve": {
+			"executor": "@nx/vite:dev-server",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "backend:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "backend:build:development"
+				},
+				"production": {
+					"buildTarget": "backend:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/vite:test"
+		}
+	}
+}

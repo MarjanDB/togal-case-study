@@ -35,13 +35,6 @@
 			}
 		},
 		{
-			"plugin": "@nx/jest/plugin",
-			"options": {
-				"targetName": "test"
-			},
-			"exclude": ["apps/backend-e2e/**/*"]
-		},
-		{
 			"plugin": "@nx/vite/plugin",
 			"options": {
 				"buildTargetName": "build",

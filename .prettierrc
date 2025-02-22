@@ -15,6 +15,12 @@
 				"useTabs": false,
 				"tabWidth": 2
 			}
+		},
+		{
+			"files": ["*.swcrc"],
+			"options": {
+				"trailingComma": "none"
+			}
 		}
 	]
 }
