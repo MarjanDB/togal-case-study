@@ -1,7 +1,7 @@
+import { AppModule } from "@backend/Modules/App.module";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
-import { AppModule } from "./app/app.module";
 
 async function prepare(): Promise<NestExpressApplication> {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
