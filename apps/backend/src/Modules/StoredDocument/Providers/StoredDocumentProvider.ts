@@ -26,7 +26,7 @@ export class StoredDocumentProvider {
 		return StoredDocument.fromDto(result[0]);
 	}
 
-	public async findByHash(hash: StoredDocumentHash): Promise<StoredDocument> {
+	public async findByHash(hash: StoredDocumentHash): Promise<StoredDocument[]> {
 		const result = await this.database.query(
 			"SELECT * FROM stored_documents WHERE hash = $hash",
 			{ hash: hash },
@@ -37,6 +37,6 @@ export class StoredDocumentProvider {
 			throw new NotFoundException("Stored document not found");
 		}
 
-		return StoredDocument.fromDto(result[0]);
+		return result.map(StoredDocument.fromDto);
 	}
 }

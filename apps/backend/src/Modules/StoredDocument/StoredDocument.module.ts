@@ -1,3 +1,5 @@
+import { CheckForExistingStoredDocumentAction } from "@backend/Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
+import { StoreNewDocumentAction } from "@backend/Modules/StoredDocument/Actions/StoreNewDocumentAction";
 import { StoredDocumentProvider } from "@backend/Modules/StoredDocument/Providers/StoredDocumentProvider";
 import { IPostgresqlDatabaseFactory } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseFactory";
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
@@ -29,7 +31,9 @@ import { ConfigService } from "@nestjs/config";
 			inject: [ConfigService, IPostgresqlDatabaseFactory],
 		},
 		StoredDocumentProvider,
+		CheckForExistingStoredDocumentAction,
+		StoreNewDocumentAction,
 	],
-	exports: [],
+	exports: [CheckForExistingStoredDocumentAction, StoreNewDocumentAction],
 })
 export class StoredDocumentModule {}
