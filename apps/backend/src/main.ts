@@ -1,4 +1,4 @@
-import { AppModule } from "@backend/Modules/App.module";
+import { AppModule } from "@backend/App.module";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { NestExpressApplication } from "@nestjs/platform-express";
