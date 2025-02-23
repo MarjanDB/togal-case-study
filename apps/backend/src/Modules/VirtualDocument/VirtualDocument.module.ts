@@ -1,3 +1,4 @@
+import { AssociateStoredDocumentWithVirtualDocument } from "@backend/Modules/VirtualDocument/Actions/AssociateStoredDocumentWithVirtualDocument";
 import { CreateNewVirtualDocumentAction } from "@backend/Modules/VirtualDocument/Actions/CreateNewVirtualDocument";
 import { VirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentProvider";
 import { VirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentStoredDocumentsProvider";
@@ -34,7 +35,8 @@ import { ConfigService } from "@nestjs/config";
 		VirtualDocumentProvider,
 		VirtualDocumentStoredDocumentsProvider,
 		CreateNewVirtualDocumentAction,
+		AssociateStoredDocumentWithVirtualDocument,
 	],
-	exports: [CreateNewVirtualDocumentAction],
+	exports: [CreateNewVirtualDocumentAction, AssociateStoredDocumentWithVirtualDocument],
 })
 export class VirtualDocumentModule {}

@@ -1,11 +1,11 @@
-import { LuxonTimeProvider } from "@backend/Providers/TimeProvider/Providers/LuxonTimeProvider";
+import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
 import { IdentifierOptions, IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { v7 as uuidv7 } from "uuid";
 
 @Injectable()
 export class UUID7Provider implements IUniqueIdentifierProvider {
-	public constructor(private readonly timeProvider: LuxonTimeProvider) {}
+	public constructor(@Inject(ITimeProvider) private readonly timeProvider: ITimeProvider) {}
 
 	// TODO: Reminder to fix Generic once uuid fixes their types
 	public getUniqueIdentifier<T extends string = string>(options?: IdentifierOptions): T {

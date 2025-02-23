@@ -14,15 +14,25 @@ export class FindStoredDocumentsBelongingToVirtualDocumentsAction {
 	): Promise<FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup> {
 		const result = await this.storedDocumentProvider.findForVirtualDocuments(virtualDocumentIds);
 
-		const storedDocumentsGroupedByVirtualDocumentId = radash.group(result, (item) => item.virtual_document_stored_document_id);
+		const resultsWithStoredDocuments = result.map((item) => ({
+			virtual_document_stored_document_id: item.virtual_document_stored_document_id,
+			storedDocument: StoredDocument.fromDto(item),
+		}));
 
-		const lookup: FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup = Object.fromEntries(
-			Object.entries(storedDocumentsGroupedByVirtualDocumentId).map(([virtualDocumentId, storedDocuments]) => [
-				virtualDocumentId,
-				radash.group(storedDocuments ?? [], (item) => item.id),
-			]),
-		) as unknown as FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup;
-		// .group has an optional value pair type which causes issues
+		const storedDocumentsGroupedByVirtualDocumentId = radash.group(
+			resultsWithStoredDocuments,
+			(item) => item.virtual_document_stored_document_id,
+		);
+
+		const lookup: FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup = {};
+
+		for (const [virtualDocumentId, storedDocuments] of Object.entries(storedDocumentsGroupedByVirtualDocumentId)) {
+			lookup[virtualDocumentId as VirtualDocumentId] = {};
+
+			for (const storedDocument of storedDocuments ?? []) {
+				lookup[virtualDocumentId as VirtualDocumentId][storedDocument.storedDocument.id] = storedDocument.storedDocument;
+			}
+		}
 
 		return lookup;
 	}

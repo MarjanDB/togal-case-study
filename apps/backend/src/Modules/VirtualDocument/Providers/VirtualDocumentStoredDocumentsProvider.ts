@@ -11,6 +11,6 @@ export class VirtualDocumentStoredDocumentsProvider {
 	public async addStoredDocumentToVirtualDocument(virtualDocumentId: VirtualDocumentId, storedDocumentId: StoredDocumentId): Promise<void> {
 		const toInsert: VirtualDocumentStoredDocumentDto = { virtual_document_id: virtualDocumentId, stored_document_id: storedDocumentId };
 
-		await this.database.insert([toInsert], ["virtual_document_id", "stored_document_id"], "virtual_document_stored_documents");
+		await this.database.insert([toInsert], ["virtual_document_id", "stored_document_id"], "virtual_documents_stored_documents");
 	}
 }

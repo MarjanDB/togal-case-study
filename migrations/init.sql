@@ -75,11 +75,11 @@ GRANT ALL ON TABLE public.virtual_folders TO postgres;
 -- DROP TABLE public.virtual_documents_stored_documents;
 
 CREATE TABLE public.virtual_documents_stored_documents (
-	stored_documents uuid NOT NULL,
-	virtual_documents uuid NOT NULL,
-	CONSTRAINT virtual_documents_stored_documents_pk PRIMARY KEY (stored_documents, virtual_documents),
-	CONSTRAINT virtual_documents_stored_documents_stored_documents_fk FOREIGN KEY (stored_documents) REFERENCES public.stored_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT virtual_documents_stored_documents_virtual_documents_fk FOREIGN KEY (virtual_documents) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE
+	stored_document_id uuid NOT NULL,
+	virtual_document_id uuid NOT NULL,
+	CONSTRAINT virtual_documents_stored_documents_pk PRIMARY KEY (stored_document_id, virtual_document_id),
+	CONSTRAINT virtual_documents_stored_documents_stored_document_id_fk FOREIGN KEY (stored_document_id) REFERENCES public.stored_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT virtual_documents_stored_documents_virtual_document_id_fk FOREIGN KEY (virtual_document_id) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Permissions
@@ -95,11 +95,11 @@ GRANT ALL ON TABLE public.virtual_documents_stored_documents TO postgres;
 -- DROP TABLE public.virtual_folders_virtual_documents;
 
 CREATE TABLE public.virtual_folders_virtual_documents (
-	virtual_folders uuid NOT NULL,
-	virtual_documents uuid NOT NULL,
-	CONSTRAINT virtual_folders_virtual_documents_pk PRIMARY KEY (virtual_folders, virtual_documents),
-	CONSTRAINT virtual_folders_virtual_documents_virtual_documents_fk FOREIGN KEY (virtual_documents) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT virtual_folders_virtual_documents_virtual_folders_fk FOREIGN KEY (virtual_folders) REFERENCES public.virtual_folders(id) ON DELETE CASCADE ON UPDATE CASCADE
+	virtual_folder_id uuid NOT NULL,
+	virtual_document_id uuid NOT NULL,
+	CONSTRAINT virtual_folders_virtual_documents_pk PRIMARY KEY (virtual_folder_id, virtual_document_id),
+	CONSTRAINT virtual_folders_virtual_documents_virtual_document_id_fk FOREIGN KEY (virtual_document_id) REFERENCES public.virtual_documents(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT virtual_folders_virtual_documents_virtual_folder_id_fk FOREIGN KEY (virtual_folder_id) REFERENCES public.virtual_folders(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Permissions

@@ -1,3 +1,4 @@
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocument";
 import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocuments";
 import {
 	StoredDocument,
@@ -47,12 +48,35 @@ export class StoredDocumentProvider {
 	): Promise<FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.QueryResult[]> {
 		const result = await this.database.query(
 			`SELECT stored_documents.*, vdsd.id as virtual_document_stored_document_id
-			FROM stored_documents
-			INNER JOIN virtual_document_stored_documents AS vdsd ON stored_documents.id = vdsd.stored_document_id
-			WHERE vdsd.virtual_document_id IN ($/virtual_document_ids/:csv)
-			ORDER BY stored_at DESC`,
+			FROM stored_documents sd
+			INNER JOIN virtual_documents_stored_documents AS vdsd ON vdsd.stored_document_id = sd.id
+			WHERE vdsd.virtual_document_id IN ($/virtual_document_ids:csv/)
+			ORDER BY sd.stored_at DESC`,
 			{ virtual_document_ids: virtualDocumentIds },
 			FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.QueryResult.asserterArray,
+		);
+
+		return result;
+	}
+
+	public async findMostRecentForVirtualDocuments(
+		virtualDocumentIds: VirtualDocumentId[],
+	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes.QueryResult[]> {
+		const result = await this.database.query(
+			`
+			WITH ranked_stored_documents AS (
+				SELECT
+					vdsd.virtual_document_id,
+					sd.*,
+					ROW_NUMBER() OVER (PARTITION BY vdsd.virtual_document_id ORDER BY sd.stored_at DESC) AS ranked
+				FROM stored_documents sd
+				INNER JOIN virtual_documents_stored_documents vdsd ON vdsd.stored_document_id = sd.id
+				WHERE vdsd.virtual_document_id IN ($/virtual_document_ids:csv/)
+			)
+			SELECT * from ranked_stored_documents
+			WHERE ranked = 1`,
+			{ virtual_document_ids: virtualDocumentIds },
+			FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes.QueryResult.asserterArray,
 		);
 
 		return result;
