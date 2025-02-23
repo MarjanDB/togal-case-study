@@ -1,4 +1,4 @@
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentAction";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
 import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import {
@@ -61,13 +61,13 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 
 	public async findMostRecentForVirtualDocuments(
 		virtualDocumentIds: VirtualDocumentId[],
-	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes.QueryResult[]> {
+	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.QueryResult[]> {
 		const result = await this.database.query(
 			`
 			WITH ranked_stored_documents AS (
 				SELECT
 					vdsd.virtual_document_id,
-					sd.*,
+					sd.id, sd.stored_at, sd.original_file_name,
 					ROW_NUMBER() OVER (PARTITION BY vdsd.virtual_document_id ORDER BY sd.stored_at DESC) AS ranked
 				FROM stored_documents sd
 				INNER JOIN virtual_documents_stored_documents vdsd ON vdsd.stored_document_id = sd.id
@@ -76,7 +76,7 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 			SELECT * from ranked_stored_documents
 			WHERE ranked = 1`,
 			{ virtual_document_ids: virtualDocumentIds },
-			FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes.QueryResult.asserterArray,
+			FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.QueryResult.asserterArray,
 		);
 
 		return result;

@@ -1,5 +1,5 @@
 import { CheckForExistingStoredDocumentAction } from "@backend/Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentAction } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentAction";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
 import { StoreNewDocumentAction } from "@backend/Modules/StoredDocument/Actions/StoreNewDocumentAction";
 import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
@@ -16,13 +16,13 @@ import { Module } from "@nestjs/common";
 		CheckForExistingStoredDocumentAction,
 		StoreNewDocumentAction,
 		FindStoredDocumentsBelongingToVirtualDocumentsAction,
-		FindMostRecentStoredDocumentBelongingToVirtualDocumentAction,
+		FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction,
 	],
 	exports: [
 		CheckForExistingStoredDocumentAction,
 		StoreNewDocumentAction,
 		FindStoredDocumentsBelongingToVirtualDocumentsAction,
-		FindMostRecentStoredDocumentBelongingToVirtualDocumentAction,
+		FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction,
 	],
 })
 export class StoredDocumentModule {}

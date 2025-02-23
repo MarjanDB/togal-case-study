@@ -54,4 +54,5 @@ export const enum VirtualDocumentType {
 	PDF = "pdf",
 	WORD = "word",
 	EXCEL = "excel",
+	TEXT = "text",
 }

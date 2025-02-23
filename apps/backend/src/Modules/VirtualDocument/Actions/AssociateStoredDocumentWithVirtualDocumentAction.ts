@@ -4,7 +4,7 @@ import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/Vir
 import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
-export class AssociateStoredDocumentWithVirtualDocument {
+export class AssociateStoredDocumentWithVirtualDocumentAction {
 	public constructor(
 		@Inject(IVirtualDocumentStoredDocumentsProvider)
 		private readonly virtualDocumentStoredDocumentsProvider: IVirtualDocumentStoredDocumentsProvider,

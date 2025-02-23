@@ -1,4 +1,4 @@
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentAction";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
 import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
@@ -15,5 +15,5 @@ export abstract class IStoredDocumentProvider {
 
 	abstract findMostRecentForVirtualDocuments(
 		virtualDocumentIds: VirtualDocumentId[],
-	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes.QueryResult[]>;
+	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.QueryResult[]>;
 }
