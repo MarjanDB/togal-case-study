@@ -1,12 +1,10 @@
 {
 	"compilerOptions": {
 		"incremental": true,
-		"composite": true,
 		"target": "ESNext",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"module": "CommonJS",
-		"rootDir": ".",
 		"baseUrl": ".",
 		"paths": {
 			"@backend/*": ["../../apps/backend/src/*"],

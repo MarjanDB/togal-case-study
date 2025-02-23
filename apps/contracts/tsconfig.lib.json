@@ -4,7 +4,6 @@
 		"tsBuildInfoFile": "out-tsc/contracts/tsconfig.lib.tsbuildinfo",
 		"outDir": "../../dist/out-tsc/contracts",
 		"declaration": true,
-		"composite": true,
 		"types": ["node", "vite/client"]
 	},
 	"include": ["src/**/*.ts"],

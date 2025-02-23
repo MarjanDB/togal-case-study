@@ -2,6 +2,7 @@
 	"name": "backend",
 	"projectType": "application",
 	"sourceRoot": "apps/backend/src",
+	"implicitDependencies": ["contracts"],
 	"targets": {
 		"build": {
 			"executor": "@nx/vite:build",

@@ -9,8 +9,7 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"noPropertyAccessFromIndexSignature": true,
-		"baseUrl": ".",
-		"rootDir": "."
+		"baseUrl": "."
 	},
 	"files": [],
 	"include": [],
