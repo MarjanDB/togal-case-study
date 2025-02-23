@@ -1,9 +1,9 @@
 import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { StoredDocumentModule } from "@backend/Modules/StoredDocument/StoredDocument.module";
+import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { IVirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentStoredDocumentsProvider";
 import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentProvider";
-import { VirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentStoredDocumentsProvider";
 import { VirtualDocumentModule } from "@backend/Modules/VirtualDocument/VirtualDocument.module";
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { ProvidersModule } from "@backend/Providers/Providers.module";
@@ -14,8 +14,8 @@ import { DateTime } from "luxon";
 
 describe("StoredDocumentProvider", () => {
 	let provider: IStoredDocumentProvider;
-	let virtualDocumentProvider: VirtualDocumentProvider;
-	let virtualDocumentStoredDocumentsProvider: VirtualDocumentStoredDocumentsProvider;
+	let virtualDocumentProvider: IVirtualDocumentProvider;
+	let virtualDocumentStoredDocumentsProvider: IVirtualDocumentStoredDocumentsProvider;
 	let database: IPostgresDatabaseProvider;
 	let identifierProvider: IUniqueIdentifierProvider;
 	let module: TestingModule;
@@ -30,8 +30,8 @@ describe("StoredDocumentProvider", () => {
 		await module.init();
 
 		provider = module.get<IStoredDocumentProvider>(IStoredDocumentProvider);
-		virtualDocumentProvider = module.get<VirtualDocumentProvider>(VirtualDocumentProvider);
-		virtualDocumentStoredDocumentsProvider = module.get<VirtualDocumentStoredDocumentsProvider>(VirtualDocumentStoredDocumentsProvider);
+		virtualDocumentProvider = module.get<IVirtualDocumentProvider>(IVirtualDocumentProvider);
+		virtualDocumentStoredDocumentsProvider = module.get<IVirtualDocumentStoredDocumentsProvider>(IVirtualDocumentStoredDocumentsProvider);
 		database = module.get<IPostgresDatabaseProvider>(IPostgresDatabaseProvider);
 		identifierProvider = module.get<IUniqueIdentifierProvider>(IUniqueIdentifierProvider);
 		await database.query("TRUNCATE TABLE virtual_documents CASCADE", {}, (value) => value);

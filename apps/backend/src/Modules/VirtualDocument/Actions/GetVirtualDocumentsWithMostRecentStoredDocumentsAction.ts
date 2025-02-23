@@ -1,10 +1,9 @@
 import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { StoredDocument } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentDto } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
 import { Inject, Injectable } from "@nestjs/common";
-import typia from "typia";
 
 @Injectable()
 export class GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
@@ -42,14 +41,5 @@ export class GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
 export namespace GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes {
 	export type VirtualDocumentWithMostRecentStoredDocument = VirtualDocument & {
 		mostRecentStoredDocument: StoredDocument;
-	};
-
-	export interface QueryResult extends VirtualDocumentDto {
-		virtual_folder_id: VirtualFolderId;
-	}
-
-	export const QueryResult = {
-		asserter: typia.createAssert<QueryResult>(),
-		asserterArray: typia.createAssert<QueryResult[]>(),
 	};
 }

@@ -1,3 +1,4 @@
+import { StoredDocumentModule } from "@backend/Modules/StoredDocument/StoredDocument.module";
 import { AssociateStoredDocumentWithVirtualDocumentAction } from "@backend/Modules/VirtualDocument/Actions/AssociateStoredDocumentWithVirtualDocumentAction";
 import { CreateNewVirtualDocumentAction } from "@backend/Modules/VirtualDocument/Actions/CreateNewVirtualDocumentAction";
 import { GetVirtualDocumentsAction } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
@@ -9,7 +10,7 @@ import { VirtualDocumentStoredDocumentsProvider } from "@backend/Modules/Virtual
 import { Module } from "@nestjs/common";
 
 @Module({
-	imports: [],
+	imports: [StoredDocumentModule],
 	providers: [
 		{
 			provide: IVirtualDocumentProvider,

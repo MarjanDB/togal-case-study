@@ -1,6 +1,4 @@
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
-import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { IStoredDocumentProvider, IStoredDocumentProviderTypes } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import {
 	StoredDocument,
 	StoredDocumentDto,
@@ -45,7 +43,7 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 
 	public async findForVirtualDocuments(
 		virtualDocumentIds: VirtualDocumentId[],
-	): Promise<FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.QueryResult[]> {
+	): Promise<IStoredDocumentProviderTypes.FindForVirtualDocuments[]> {
 		const result = await this.database.query(
 			`SELECT sd.*, vdsd.virtual_document_id
 			FROM stored_documents sd
@@ -53,7 +51,7 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 			WHERE vdsd.virtual_document_id IN ($/virtual_document_ids:csv/)
 			ORDER BY sd.stored_at DESC`,
 			{ virtual_document_ids: virtualDocumentIds },
-			FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.QueryResult.asserterArray,
+			IStoredDocumentProviderTypes.FindForVirtualDocuments.asserterArray,
 		);
 
 		return result;
@@ -61,7 +59,7 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 
 	public async findMostRecentForVirtualDocuments(
 		virtualDocumentIds: VirtualDocumentId[],
-	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.QueryResult[]> {
+	): Promise<IStoredDocumentProviderTypes.FindMostRecentForVirtualDocuments[]> {
 		const result = await this.database.query(
 			`
 			WITH ranked_stored_documents AS (
@@ -76,7 +74,7 @@ export class StoredDocumentProvider implements IStoredDocumentProvider {
 			SELECT * from ranked_stored_documents
 			WHERE ranked = 1`,
 			{ virtual_document_ids: virtualDocumentIds },
-			FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.QueryResult.asserterArray,
+			IStoredDocumentProviderTypes.FindMostRecentForVirtualDocuments.asserterArray,
 		);
 
 		return result;
