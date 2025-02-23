@@ -1,6 +1,7 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
+		"tsBuildInfoFile": "out-tsc/backend/tsconfig.app.tsbuildinfo",
 		"outDir": "out-tsc/backend",
 		"types": ["node"]
 	},

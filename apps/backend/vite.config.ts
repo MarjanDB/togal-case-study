@@ -63,9 +63,15 @@ export default defineConfig({
 		},
 	},
 	test: {
+		watch: false,
 		globals: true,
 		environment: "node",
+		include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
 		reporters: ["basic"],
 		disableConsoleIntercept: true,
+		coverage: {
+			reportsDirectory: "../../coverage/apps/backend",
+			provider: "v8",
+		},
 	},
 });

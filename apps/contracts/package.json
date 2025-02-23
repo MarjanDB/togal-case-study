@@ -1,0 +1,10 @@
+{
+	"name": "@togal-case-study/contracts",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"devDependencies": {
+		"@types/luxon": "^3.4.2",
+		"luxon": "^3.5.0"
+	}
+}
