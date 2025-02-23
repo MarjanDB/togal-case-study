@@ -1,12 +1,12 @@
+import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument, StoredDocumentDto } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { StoredDocumentProvider } from "@backend/Modules/StoredDocument/Providers/StoredDocumentProvider";
 import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { Inject, Injectable } from "@nestjs/common";
 import typia from "typia";
 
 @Injectable()
-export class FindMostRecentStoredDocumentBelongingToVirtualDocument {
-	public constructor(@Inject(StoredDocumentProvider) private readonly storedDocumentProvider: StoredDocumentProvider) {}
+export class FindMostRecentStoredDocumentBelongingToVirtualDocumentAction {
+	public constructor(@Inject(IStoredDocumentProvider) private readonly storedDocumentProvider: IStoredDocumentProvider) {}
 
 	public async execute(
 		virtualDocumentIds: VirtualDocumentId[],

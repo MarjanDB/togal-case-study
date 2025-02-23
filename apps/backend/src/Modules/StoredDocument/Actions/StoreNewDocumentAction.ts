@@ -1,6 +1,6 @@
 import { CheckForExistingStoredDocumentAction } from "@backend/Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
+import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { StoredDocumentProvider } from "@backend/Modules/StoredDocument/Providers/StoredDocumentProvider";
 import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
 import { IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
@@ -8,12 +8,14 @@ import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 @Injectable()
 export class StoreNewDocumentAction {
 	public constructor(
-		private readonly checkForExistingStoredDocumentAction: CheckForExistingStoredDocumentAction,
-		@Inject(StoredDocumentProvider) private readonly storedDocumentProvider: StoredDocumentProvider,
 		@Inject(CheckForExistingStoredDocumentAction)
+		private readonly checkForExistingStoredDocumentAction: CheckForExistingStoredDocumentAction,
+		@Inject(IStoredDocumentProvider)
+		private readonly storedDocumentProvider: IStoredDocumentProvider,
 		@Inject(IUniqueIdentifierProvider)
 		private readonly uniqueIdentifierProvider: IUniqueIdentifierProvider,
-		@Inject(ITimeProvider) private readonly timeProvider: ITimeProvider,
+		@Inject(ITimeProvider)
+		private readonly timeProvider: ITimeProvider,
 	) {}
 
 	public async execute(fileName: string, data: Uint8Array): Promise<StoredDocument> {

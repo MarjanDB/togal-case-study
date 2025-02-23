@@ -1,9 +1,9 @@
+import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
 import { VirtualDocument, VirtualDocumentDto, VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, NotFoundException } from "@nestjs/common";
 
-@Injectable()
-export class VirtualDocumentProvider {
+export class VirtualDocumentProvider implements IVirtualDocumentProvider {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}
 
 	public async create(document: VirtualDocument): Promise<void> {

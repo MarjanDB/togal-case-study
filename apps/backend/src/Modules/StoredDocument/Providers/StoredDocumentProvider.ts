@@ -1,5 +1,6 @@
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocument";
-import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocuments";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentActionTypes } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentAction";
+import { FindStoredDocumentsBelongingToVirtualDocumentsActionTypes } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
+import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import {
 	StoredDocument,
 	StoredDocumentDto,
@@ -8,10 +9,9 @@ import {
 } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, NotFoundException } from "@nestjs/common";
 
-@Injectable()
-export class StoredDocumentProvider {
+export class StoredDocumentProvider implements IStoredDocumentProvider {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}
 
 	public async create(document: StoredDocument): Promise<void> {
@@ -47,7 +47,7 @@ export class StoredDocumentProvider {
 		virtualDocumentIds: VirtualDocumentId[],
 	): Promise<FindStoredDocumentsBelongingToVirtualDocumentsActionTypes.QueryResult[]> {
 		const result = await this.database.query(
-			`SELECT stored_documents.*, vdsd.id as virtual_document_stored_document_id
+			`SELECT sd.*, vdsd.virtual_document_id
 			FROM stored_documents sd
 			INNER JOIN virtual_documents_stored_documents AS vdsd ON vdsd.stored_document_id = sd.id
 			WHERE vdsd.virtual_document_id IN ($/virtual_document_ids:csv/)

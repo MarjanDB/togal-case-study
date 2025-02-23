@@ -1,8 +1,9 @@
-import { ModulesModule } from "@backend/Modules/Modules.module";
+import { GetStoredDocumentsForVirtualDocumentController } from "@backend/Delivery/StoredDocument/GetStoredDocumentsForVirtualDocuments.controller";
 import { Module } from "@nestjs/common";
 
 @Module({
-	imports: [ModulesModule],
+	imports: [],
+	controllers: [GetStoredDocumentsForVirtualDocumentController],
 	providers: [],
 	exports: [],
 })

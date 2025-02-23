@@ -1,5 +1,5 @@
+import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { StoredDocumentProvider } from "@backend/Modules/StoredDocument/Providers/StoredDocumentProvider";
 import { StoredDocumentModule } from "@backend/Modules/StoredDocument/StoredDocument.module";
 import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { VirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentProvider";
@@ -13,7 +13,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
 
 describe("StoredDocumentProvider", () => {
-	let provider: StoredDocumentProvider;
+	let provider: IStoredDocumentProvider;
 	let virtualDocumentProvider: VirtualDocumentProvider;
 	let virtualDocumentStoredDocumentsProvider: VirtualDocumentStoredDocumentsProvider;
 	let database: IPostgresDatabaseProvider;
@@ -29,7 +29,7 @@ describe("StoredDocumentProvider", () => {
 
 		await module.init();
 
-		provider = module.get<StoredDocumentProvider>(StoredDocumentProvider);
+		provider = module.get<IStoredDocumentProvider>(IStoredDocumentProvider);
 		virtualDocumentProvider = module.get<VirtualDocumentProvider>(VirtualDocumentProvider);
 		virtualDocumentStoredDocumentsProvider = module.get<VirtualDocumentStoredDocumentsProvider>(VirtualDocumentStoredDocumentsProvider);
 		database = module.get<IPostgresDatabaseProvider>(IPostgresDatabaseProvider);

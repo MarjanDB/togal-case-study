@@ -1,10 +1,10 @@
+import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocumentHash } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { StoredDocumentProvider } from "@backend/Modules/StoredDocument/Providers/StoredDocumentProvider";
 import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class CheckForExistingStoredDocumentAction {
-	public constructor(@Inject(StoredDocumentProvider) private readonly storedDocumentProvider: StoredDocumentProvider) {}
+	public constructor(@Inject(IStoredDocumentProvider) private readonly storedDocumentProvider: IStoredDocumentProvider) {}
 
 	public async execute(hash: StoredDocumentHash): Promise<boolean> {
 		try {

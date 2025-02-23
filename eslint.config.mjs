@@ -1,13 +1,14 @@
 // @ts-check
-
 import eslint from "@eslint/js";
 import nxPlugin from "@nx/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
+import { flatConfigs as importPlugin } from "eslint-plugin-import";
 import prettier from "eslint-plugin-prettier/recommended";
 import tseslint from "typescript-eslint";
 
 export default [
 	eslint.configs.recommended,
+	importPlugin.recommended,
 	...tseslint.configs.recommended,
 	...nxPlugin.configs["flat/typescript"],
 	{
@@ -28,6 +29,7 @@ export default [
 			"@typescript-eslint/no-explicit-any": "off",
 			"@typescript-eslint/no-namespace": "off",
 			"@typescript-eslint/no-unused-vars": ["off", { argsIgnorePattern: "^_" }],
+			"import/no-cycle": "error",
 		},
 	},
 	prettier,
