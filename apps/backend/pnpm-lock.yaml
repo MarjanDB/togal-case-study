@@ -38,6 +38,9 @@ importers:
       pg-promise:
         specifier: ^11.10.2
         version: 11.10.2(pg-query-stream@4.7.1(pg@8.13.1))
+      radashi:
+        specifier: ^12.3.4
+        version: 12.3.4
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1597,6 +1600,10 @@ packages:
   qs@6.14.0:
     resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
     engines: {node: '>=0.6'}
+
+  radashi@12.3.4:
+    resolution: {integrity: sha512-EC+EhNBJItMLo/D3GR87raHf7W1hkbHUT7Y3Y7/3O+cwMOulRfuZ3g+EU0KT9eikaj8vwLA4ia+bdaXkBGuT4Q==}
+    engines: {node: '>=16.0.0'}
 
   randexp@0.5.3:
     resolution: {integrity: sha512-U+5l2KrcMNOUPYvazA3h5ekF80FHTUG+87SEAmHZmolh1M+i/WyTCxVzmi+tidIa1tM4BSe8g2Y/D3loWDjj+w==}
@@ -3484,6 +3491,8 @@ snapshots:
   qs@6.14.0:
     dependencies:
       side-channel: 1.1.0
+
+  radashi@12.3.4: {}
 
   randexp@0.5.3:
     dependencies:

@@ -1,7 +1,7 @@
 {
 	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"tsBuildInfoFile": "out-tsc/backend/tsconfig.app.tsbuildinfo",
+		"tsBuildInfoFile": "out-tsc/tsconfig.app.tsbuildinfo",
 		"module": "ES2022",
 		"moduleResolution": "node",
 		"experimentalDecorators": true,
