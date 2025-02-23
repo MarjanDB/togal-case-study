@@ -1,3 +1,4 @@
+import { GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction } from "@backend/Modules/VirtualFolder/Actions/GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction";
 import { IVirtualFolderProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
 import { IVirtualFolderVirtualDocumentsProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
 import { VirtualFolderProvider } from "@backend/Modules/VirtualFolder/Providers/VirtualFolderProvider";
@@ -15,7 +16,8 @@ import { Module } from "@nestjs/common";
 			provide: IVirtualFolderVirtualDocumentsProvider,
 			useClass: VirtualFolderVirtualDocumentsProvider,
 		},
+		GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction,
 	],
-	exports: [],
+	exports: [GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction],
 })
 export class VirtualFolderModule {}

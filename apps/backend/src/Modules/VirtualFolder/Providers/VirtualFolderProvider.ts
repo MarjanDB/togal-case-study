@@ -1,4 +1,4 @@
-import { IVirtualFolderProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
+import { IVirtualFolderProvider, IVirtualFolderProviderTypes } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
 import { VirtualFolder, VirtualFolderDto, VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
 import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { Inject, NotFoundException } from "@nestjs/common";
@@ -39,5 +39,24 @@ export class VirtualFolderProvider implements IVirtualFolderProvider {
 		const result = await this.database.query("SELECT * FROM virtual_folders ORDER BY created_at DESC", {}, VirtualFolderDto.asserterArray);
 
 		return result.map(VirtualFolder.fromDto);
+	}
+
+	public async findAllWithAssociatedVirtualDocuments(): Promise<
+		IVirtualFolderProviderTypes.VirtualFolderWithAssociatedVirtualDocumentsQuery[]
+	> {
+		const result = await this.database.query(
+			`
+			SELECT
+				vf.*,
+				vfvd.virtual_document_id
+			FROM virtual_folders AS vf
+			LEFT JOIN virtual_folders_virtual_documents AS vfvd ON vf.id = vfvd.virtual_folder_id
+			ORDER BY vf.created_at DESC
+			`,
+			{},
+			IVirtualFolderProviderTypes.VirtualFolderWithAssociatedVirtualDocumentsQuery.asserterArray,
+		);
+
+		return result;
 	}
 }

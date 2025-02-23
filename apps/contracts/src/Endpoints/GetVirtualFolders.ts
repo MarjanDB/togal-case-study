@@ -2,14 +2,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DateTime } from "luxon";
 
 export namespace GetVirtualFolders {
-	export class Parameters {
-		@ApiProperty({
-			description: "The ID of the virtual folder to get virtual documents for",
-			type: "string",
-		})
-		virtualFolderId!: string;
-	}
-
 	export class Response {
 		@ApiProperty({
 			description: "The virtual folders",
