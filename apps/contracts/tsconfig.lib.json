@@ -4,7 +4,7 @@
 		"tsBuildInfoFile": "out-tsc/contracts/tsconfig.lib.tsbuildinfo",
 		"outDir": "../../dist/out-tsc/contracts",
 		"declaration": true,
-		"types": ["node", "vite/client"]
+		"types": ["node", "multer", "vite/client"]
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": [

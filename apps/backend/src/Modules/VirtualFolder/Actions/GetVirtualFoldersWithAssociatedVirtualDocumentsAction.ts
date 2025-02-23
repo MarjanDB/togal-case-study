@@ -4,12 +4,10 @@ import { VirtualFolder, VirtualFolderId } from "@backend/Modules/VirtualFolder/E
 import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
-export class GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction {
+export class GetVirtualFoldersWithAssociatedVirtualDocumentsAction {
 	public constructor(@Inject(IVirtualFolderProvider) private readonly virtualFolderProvider: IVirtualFolderProvider) {}
 
-	public async execute(): Promise<
-		GetVirtualFoldersActionWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[]
-	> {
+	public async execute(): Promise<GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[]> {
 		const virtualFolders = await this.virtualFolderProvider.findAllWithAssociatedVirtualDocuments();
 
 		const virtualFolderDefinitions: Record<VirtualFolderId, VirtualFolder> = {};
@@ -25,7 +23,7 @@ export class GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction {
 			}
 		}
 
-		const virtualFoldersWithAssociatedVirtualDocuments: GetVirtualFoldersActionWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[] =
+		const virtualFoldersWithAssociatedVirtualDocuments: GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[] =
 			Object.keys(virtualFolderDefinitions).map((virtualFolderId) => ({
 				virtualFolder: virtualFolderDefinitions[virtualFolderId as VirtualFolderId],
 				virtualDocumentIds: associatedVirtualDocuments[virtualFolderId as VirtualFolderId] ?? [],
@@ -35,7 +33,7 @@ export class GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction {
 	}
 }
 
-export namespace GetVirtualFoldersActionWithAssociatedVirtualDocumentsActionTypes {
+export namespace GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes {
 	export type VirtualFolderWithAssociatedVirtualDocuments = {
 		virtualFolder: VirtualFolder;
 		virtualDocumentIds: VirtualDocumentId[];

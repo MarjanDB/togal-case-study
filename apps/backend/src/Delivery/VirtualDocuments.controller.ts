@@ -2,9 +2,12 @@ import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "@
 import { StoredDocument } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { GetVirtualDocumentsAction } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
 import { VirtualDocument, VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
+import { CreateVirtualDocument } from "@contracts/Endpoints/CreateVirtualDocument";
 import { GetVirtualDocuments } from "@contracts/Endpoints/GetVirtualDocuments";
-import { Body, Controller, Inject, Post } from "@nestjs/common";
-import { ApiBody, ApiResponse } from "@nestjs/swagger";
+import { Body, Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { ApiBody, ApiConsumes, ApiResponse } from "@nestjs/swagger";
+import { DateTime } from "luxon";
 
 @Controller("virtual-documents")
 export class VirtualDocumentsController {
@@ -57,5 +60,25 @@ export class VirtualDocumentsController {
 		}));
 
 		return documents;
+	}
+
+	@Post("upload-document")
+	@UseInterceptors(FileInterceptor("file"))
+	@ApiBody({ type: CreateVirtualDocument.Parameters })
+	@ApiConsumes("multipart/form-data")
+	@ApiResponse({ type: CreateVirtualDocument.Response })
+	async uploadDocument(
+		@Body() body: CreateVirtualDocument.Parameters,
+		@UploadedFile() file: Express.Multer.File,
+	): Promise<CreateVirtualDocument.Response> {
+		console.log(file);
+
+		return {
+			id: "123",
+			name: "Test",
+			description: "Test",
+			createdAt: DateTime.now(),
+			updatedAt: DateTime.now(),
+		};
 	}
 }

@@ -1,13 +1,17 @@
-import { GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction } from "@backend/Modules/VirtualFolder/Actions/GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction";
+import { CreateVirtualFolderAction } from "@backend/Modules/VirtualFolder/Actions/CreateVirtualFolderAction";
+import { GetVirtualFoldersWithAssociatedVirtualDocumentsAction } from "@backend/Modules/VirtualFolder/Actions/GetVirtualFoldersWithAssociatedVirtualDocumentsAction";
+import { CreateVirtualFolder } from "@contracts/Endpoints/CreateVirtualFolder";
 import { GetVirtualFolders } from "@contracts/Endpoints/GetVirtualFolders";
-import { Controller, Get, Inject } from "@nestjs/common";
-import { ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
+import { ApiBody, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
 @Controller("virtual-folders")
 export class VirtualFoldersController {
 	public constructor(
-		@Inject(GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction)
-		private readonly getVirtualFoldersAction: GetVirtualFoldersActionWithAssociatedVirtualDocumentsAction,
+		@Inject(GetVirtualFoldersWithAssociatedVirtualDocumentsAction)
+		private readonly getVirtualFoldersAction: GetVirtualFoldersWithAssociatedVirtualDocumentsAction,
+		@Inject(CreateVirtualFolderAction)
+		private readonly createVirtualFolderAction: CreateVirtualFolderAction,
 	) {}
 
 	@Get("all-folders")
@@ -26,6 +30,21 @@ export class VirtualFoldersController {
 
 		return {
 			virtualFolders: response,
+		};
+	}
+
+	@Post("create-folder")
+	@ApiOperation({ summary: "Create a virtual folder" })
+	@ApiBody({ type: CreateVirtualFolder.Parameters })
+	@ApiResponse({ status: 200, type: CreateVirtualFolder.Response })
+	public async createVirtualFolder(@Body() body: CreateVirtualFolder.Parameters): Promise<CreateVirtualFolder.Response> {
+		const virtualFolder = await this.createVirtualFolderAction.execute(body.name);
+
+		return {
+			id: virtualFolder.id,
+			name: virtualFolder.name,
+			createdAt: virtualFolder.createdAt,
+			updatedAt: virtualFolder.updatedAt,
 		};
 	}
 }
