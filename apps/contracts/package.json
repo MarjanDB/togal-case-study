@@ -3,6 +3,16 @@
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.ts",
+			"require": "./dist/index.ts",
+			"default": "./dist/index.ts"
+		},
+		"./package.json": "./package.json"
+	},
 	"devDependencies": {
 		"@nestjs/swagger": "^11.0.4",
 		"@types/luxon": "^3.4.2",

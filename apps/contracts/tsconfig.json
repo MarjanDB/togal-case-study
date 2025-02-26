@@ -1,21 +1,14 @@
 {
-	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"module": "commonjs",
-		"forceConsistentCasingInFileNames": true,
-		"strict": true,
-		"importHelpers": true,
-		"noImplicitOverride": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"baseUrl": "."
+		"module": "ES2022",
+		"target": "ESNext",
+		"moduleResolution": "node10",
+		"baseUrl": "src",
+		"rootDir": ".",
+		"outDir": "dist",
+		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+		"types": ["node", "multer", "vite/client"]
 	},
-	"files": [],
-	"include": [],
-	"references": [
-		{
-			"path": "./tsconfig.lib.json"
-		}
-	]
+	"include": ["./src", "vite.config.ts"],
+	"references": []
 }

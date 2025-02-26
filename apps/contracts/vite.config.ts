@@ -8,7 +8,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
 	root: __dirname,
 	cacheDir: "../../node_modules/.vite/apps/contracts",
-	plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(["*.md"]), dts({ entryRoot: "src", tsconfigPath: path.join(__dirname, "tsconfig.lib.json") })],
+	plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(["*.md"]), dts({ entryRoot: "src", tsconfigPath: path.join(__dirname, "tsconfig.json") })],
 	// Uncomment this if you are using workers.
 	// worker: {
 	//  plugins: [ nxViteTsPaths() ],
@@ -16,7 +16,7 @@ export default defineConfig({
 	// Configuration for building your library.
 	// See: https://vitejs.dev/guide/build.html#library-mode
 	build: {
-		outDir: "../../dist/apps/contracts",
+		outDir: "dist",
 		emptyOutDir: true,
 		reportCompressedSize: true,
 		commonjsOptions: {
@@ -30,7 +30,7 @@ export default defineConfig({
 		include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
 		reporters: ["default"],
 		coverage: {
-			reportsDirectory: "../../coverage/apps/contracts",
+			reportsDirectory: "coverage",
 			provider: "v8",
 		},
 	},

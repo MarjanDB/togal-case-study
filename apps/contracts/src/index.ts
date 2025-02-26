@@ -1,3 +1,4 @@
-export * from "@contracts/Endpoints/DownloadStoredDocument";
-export * from "@contracts/Endpoints/GetStoredDocumentsForVirtualDocument";
-export * from "@contracts/Endpoints/GetVirtualDocuments";
+export * from "Endpoints/CreateVirtualDocument";
+export * from "Endpoints/CreateVirtualFolder";
+export * from "Endpoints/DownloadStoredDocument";
+export * from "Endpoints/GetStoredDocumentsForVirtualDocument";

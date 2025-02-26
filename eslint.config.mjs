@@ -12,11 +12,23 @@ export default [
 	...tseslint.configs.recommended,
 	...nxPlugin.configs["flat/typescript"],
 	{
+		settings: {
+			"import/resolver": {
+				typescript: {
+					project: ["tsconfig.json"],
+				},
+			},
+		},
 		languageOptions: {
 			parser: tseslint.parser,
 			globals: {
 				node: true,
 				vitest: true,
+			},
+			parserOptions: {
+				project: "tsconfig.json",
+				tsconfigRootDir: ".",
+				sourceType: "module",
 			},
 		},
 		plugins: {
