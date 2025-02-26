@@ -1,14 +1,9 @@
 {
-	"compilerOptions": {
-		"module": "ES2022",
-		"target": "ESNext",
-		"moduleResolution": "node10",
-		"baseUrl": "src",
-		"rootDir": ".",
-		"outDir": "dist",
-		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-		"types": ["node", "multer", "vite/client"]
-	},
-	"include": ["./src", "vite.config.ts"],
-	"references": []
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {},
+	"references": [
+		{
+			"path": "./tsconfig.lib.json"
+		}
+	]
 }

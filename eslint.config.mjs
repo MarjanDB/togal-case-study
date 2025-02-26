@@ -1,4 +1,5 @@
 // @ts-check
+
 import eslint from "@eslint/js";
 import nxPlugin from "@nx/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
@@ -15,7 +16,7 @@ export default [
 		settings: {
 			"import/resolver": {
 				typescript: {
-					project: ["tsconfig.json"],
+					project: ["tsconfig.json", "tsconfig.lib.json", "tsconfig.base.json"],
 				},
 			},
 		},

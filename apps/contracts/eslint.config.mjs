@@ -9,6 +9,7 @@ export default [
 	{
 		languageOptions: {
 			parserOptions: {
+				projectService: true,
 				tsconfigRootDir: dirname,
 			},
 		},
