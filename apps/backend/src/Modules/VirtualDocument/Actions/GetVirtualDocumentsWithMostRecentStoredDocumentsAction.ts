@@ -4,6 +4,7 @@ import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import typia from "typia";
 
 @Injectable()
 export class GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
@@ -41,5 +42,12 @@ export class GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
 export namespace GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes {
 	export type VirtualDocumentWithMostRecentStoredDocument = VirtualDocument & {
 		mostRecentStoredDocument: StoredDocument;
+	};
+
+	export type QueryResult = VirtualDocumentWithMostRecentStoredDocument;
+
+	export const QueryResult = {
+		asserter: typia.createAssert<QueryResult>(),
+		asserterArray: typia.createAssert<QueryResult[]>(),
 	};
 }

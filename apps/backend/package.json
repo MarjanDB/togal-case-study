@@ -25,7 +25,8 @@
 		"typescript": "~5.7.3",
 		"typia": "^7.6.4",
 		"uuid": "^11.1.0",
-		"vite-plugin-node": "^4.0.0"
+		"vite-plugin-node": "^4.0.0",
+		"@togal-case-study/contracts": "workspace:*"
 	},
 	"scripts": {}
 }

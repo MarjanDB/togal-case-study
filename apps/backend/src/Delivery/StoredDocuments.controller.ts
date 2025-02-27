@@ -1,6 +1,6 @@
 import { Controller, Get, Inject, Query } from "@nestjs/common";
 import { ApiOperation, ApiQuery, ApiResponse } from "@nestjs/swagger";
-import { GetStoredDocumentsForVirtualDocument } from "Endpoints/GetStoredDocumentsForVirtualDocument";
+import { GetStoredDocumentsForVirtualDocument } from "@togal-case-study/contracts";
 import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
 import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
