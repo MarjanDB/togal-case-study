@@ -1,6 +1,6 @@
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { Logger } from "@nestjs/common";
 import pgPromise, { Column, IColumnConfig } from "pg-promise";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class PostgresqlDatabaseProvider implements IPostgresDatabaseProvider {
 	constructor(

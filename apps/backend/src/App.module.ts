@@ -1,7 +1,7 @@
-import { DeliveryModule } from "@backend/Delivery/Delivery.module";
-import { ModulesModule } from "@backend/Modules/Modules.module";
-import { ProvidersModule } from "@backend/Providers/Providers.module";
 import { Module } from "@nestjs/common";
+import { DeliveryModule } from "Delivery/Delivery.module";
+import { ModulesModule } from "Modules/Modules.module";
+import { ProvidersModule } from "Providers/Providers.module";
 
 @Module({
 	imports: [

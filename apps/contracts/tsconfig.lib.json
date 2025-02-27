@@ -1,17 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"compilerOptions": {
-		"module": "ES2022",
-		"target": "ESNext",
-		"moduleResolution": "node10",
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"baseUrl": "src",
-		"rootDir": ".",
-		"outDir": "dist",
-		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
-		"types": ["node", "multer", "vite/client", "vitest/globals"]
-	},
-	"include": ["./src", "vite.config.ts", "rollup.config.cjs"],
+	"compilerOptions": {},
+	"include": ["./src", "vite.config.ts"],
 	"references": []
 }

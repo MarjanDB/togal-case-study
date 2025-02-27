@@ -16,7 +16,7 @@ export default [
 		settings: {
 			"import/resolver": {
 				typescript: {
-					project: ["tsconfig.json", "tsconfig.lib.json", "tsconfig.base.json"],
+					project: ["tsconfig.json", "tsconfig.app.json", "tsconfig.lib.json", "tsconfig.base.json"],
 				},
 			},
 		},

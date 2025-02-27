@@ -1,3 +1,17 @@
+import path from "path";
+import { fileURLToPath } from "url";
 import baseConfig from "../../eslint.config.mjs";
 
-export default [...baseConfig];
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default [
+	...baseConfig,
+	{
+		languageOptions: {
+			parserOptions: {
+				projectService: true,
+				tsconfigRootDir: dirname,
+			},
+		},
+	},
+];

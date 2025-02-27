@@ -1,8 +1,8 @@
-import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "@backend/Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { GetStoredDocumentsForVirtualDocument } from "@contracts/Endpoints/GetStoredDocumentsForVirtualDocument";
 import { Controller, Get, Inject, Query } from "@nestjs/common";
 import { ApiOperation, ApiQuery, ApiResponse } from "@nestjs/swagger";
+import { GetStoredDocumentsForVirtualDocument } from "Endpoints/GetStoredDocumentsForVirtualDocument";
+import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Controller("stored-documents")
 export class StoredDocumentsController {

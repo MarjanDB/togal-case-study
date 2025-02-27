@@ -1,7 +1,7 @@
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocument } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { Inject, Injectable } from "@nestjs/common";
+import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Injectable()
 export class FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction {

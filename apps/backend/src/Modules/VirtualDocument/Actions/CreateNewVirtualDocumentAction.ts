@@ -1,8 +1,8 @@
-import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
-import { IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { Inject, Injectable } from "@nestjs/common";
+import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
+import { IUniqueIdentifierProvider } from "Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 
 @Injectable()
 export class CreateNewVirtualDocumentAction {

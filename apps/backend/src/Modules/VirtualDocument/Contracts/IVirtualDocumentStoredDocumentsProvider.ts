@@ -1,6 +1,6 @@
-import { StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { Injectable } from "@nestjs/common";
+import { StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Injectable()
 export abstract class IVirtualDocumentStoredDocumentsProvider {

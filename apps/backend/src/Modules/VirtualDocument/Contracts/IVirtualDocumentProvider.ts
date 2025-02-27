@@ -1,7 +1,7 @@
-import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
-import { VirtualDocument, VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
 import { Injectable } from "@nestjs/common";
+import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
+import { VirtualDocument, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
 @Injectable()
 export abstract class IVirtualDocumentProvider {

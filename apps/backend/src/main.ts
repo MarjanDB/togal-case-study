@@ -1,7 +1,7 @@
-import { AppModule } from "@backend/App.module";
 import { INestApplication, Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { AppModule } from "App.module";
 
 async function prepare(): Promise<INestApplication> {
 	const app = await NestFactory.create<INestApplication>(AppModule);

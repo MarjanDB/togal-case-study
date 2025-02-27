@@ -1,5 +1,5 @@
-import { LuxonTimeProvider } from "@backend/Providers/TimeProvider/Providers/LuxonTimeProvider";
-import { sleep } from "@backend/Utils/Helpers";
+import { LuxonTimeProvider } from "Providers/TimeProvider/Providers/LuxonTimeProvider";
+import { sleep } from "Utils/Helpers";
 
 describe(LuxonTimeProvider.name, () => {
 	it("Time flows", async () => {

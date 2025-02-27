@@ -1,6 +1,6 @@
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolder, VirtualFolderDto, VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
 import { Injectable } from "@nestjs/common";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolder, VirtualFolderDto, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import typia from "typia";
 
 @Injectable()

@@ -1,6 +1,6 @@
-import { LuxonTimeProvider } from "@backend/Providers/TimeProvider/Providers/LuxonTimeProvider";
-import { UUID7Provider } from "@backend/Providers/UniqueIdentifierProvider/Providers/UUID7Provider";
-import { sleep } from "@backend/Utils/Helpers";
+import { LuxonTimeProvider } from "Providers/TimeProvider/Providers/LuxonTimeProvider";
+import { UUID7Provider } from "Providers/UniqueIdentifierProvider/Providers/UUID7Provider";
+import { sleep } from "Utils/Helpers";
 
 describe(UUID7Provider.name, () => {
 	it("Has sortable identifiers", async () => {

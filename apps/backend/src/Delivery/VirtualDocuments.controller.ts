@@ -1,13 +1,13 @@
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "@backend/Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
-import { StoredDocument } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { GetVirtualDocumentsAction } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
-import { VirtualDocument, VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { CreateVirtualDocument } from "@contracts/Endpoints/CreateVirtualDocument";
-import { GetVirtualDocuments } from "@contracts/Endpoints/GetVirtualDocuments";
 import { Body, Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiConsumes, ApiResponse } from "@nestjs/swagger";
+import { CreateVirtualDocument } from "Endpoints/CreateVirtualDocument";
+import { GetVirtualDocuments } from "Endpoints/GetVirtualDocuments";
 import { DateTime } from "luxon";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
+import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { GetVirtualDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
+import { VirtualDocument, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Controller("virtual-documents")
 export class VirtualDocumentsController {

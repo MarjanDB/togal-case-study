@@ -1,5 +1,5 @@
-import { StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
+import { StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import typia from "typia";
 
 export class VirtualDocumentStoredDocument {

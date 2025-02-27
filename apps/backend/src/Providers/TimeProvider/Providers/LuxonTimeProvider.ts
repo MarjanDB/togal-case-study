@@ -1,6 +1,6 @@
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
 import { Injectable } from "@nestjs/common";
 import { DateTime } from "luxon";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
 
 @Injectable()
 export class LuxonTimeProvider implements ITimeProvider {

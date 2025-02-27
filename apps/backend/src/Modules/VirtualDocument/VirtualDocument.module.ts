@@ -1,13 +1,13 @@
-import { StoredDocumentModule } from "@backend/Modules/StoredDocument/StoredDocument.module";
-import { AssociateStoredDocumentWithVirtualDocumentAction } from "@backend/Modules/VirtualDocument/Actions/AssociateStoredDocumentWithVirtualDocumentAction";
-import { CreateNewVirtualDocumentAction } from "@backend/Modules/VirtualDocument/Actions/CreateNewVirtualDocumentAction";
-import { GetVirtualDocumentsAction } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
-import { GetVirtualDocumentsWithMostRecentStoredDocumentsAction } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
-import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { IVirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentStoredDocumentsProvider";
-import { VirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentProvider";
-import { VirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Providers/VirtualDocumentStoredDocumentsProvider";
 import { Module } from "@nestjs/common";
+import { StoredDocumentModule } from "Modules/StoredDocument/StoredDocument.module";
+import { AssociateStoredDocumentWithVirtualDocumentAction } from "Modules/VirtualDocument/Actions/AssociateStoredDocumentWithVirtualDocumentAction";
+import { CreateNewVirtualDocumentAction } from "Modules/VirtualDocument/Actions/CreateNewVirtualDocumentAction";
+import { GetVirtualDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
+import { GetVirtualDocumentsWithMostRecentStoredDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
+import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { IVirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentStoredDocumentsProvider";
+import { VirtualDocumentProvider } from "Modules/VirtualDocument/Providers/VirtualDocumentProvider";
+import { VirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/Providers/VirtualDocumentStoredDocumentsProvider";
 
 @Module({
 	imports: [StoredDocumentModule],

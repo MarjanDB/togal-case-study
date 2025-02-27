@@ -1,10 +1,10 @@
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { PostgresqlDatabaseConfig } from "@backend/Providers/PostgresqlProvider/Contracts/PostgresqlDatabaseConfig";
-import { PostgresqlDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Providers/PostgresqlDatabaseProvider";
 import { Inject, Injectable, Logger, OnModuleDestroy } from "@nestjs/common";
 import crypto from "crypto";
 import { DateTime } from "luxon";
 import pgp from "pg-promise";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
+import { PostgresqlDatabaseConfig } from "Providers/PostgresqlProvider/Contracts/PostgresqlDatabaseConfig";
+import { PostgresqlDatabaseProvider } from "Providers/PostgresqlProvider/Providers/PostgresqlDatabaseProvider";
 
 @Injectable()
 export class PostgresqlDatabaseFactory implements OnModuleDestroy {

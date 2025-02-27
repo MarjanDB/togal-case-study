@@ -1,9 +1,9 @@
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { IVirtualFolderVirtualDocumentsProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
-import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
-import { VirtualFolderVirtualDocumentDto } from "@backend/Modules/VirtualFolder/Entities/VirtualFolderVirtualDocument";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { Inject } from "@nestjs/common";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { IVirtualFolderVirtualDocumentsProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
+import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolderVirtualDocumentDto } from "Modules/VirtualFolder/Entities/VirtualFolderVirtualDocument";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class VirtualFolderVirtualDocumentsProvider implements IVirtualFolderVirtualDocumentsProvider {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}

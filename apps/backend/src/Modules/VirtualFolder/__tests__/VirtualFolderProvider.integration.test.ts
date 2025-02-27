@@ -1,11 +1,11 @@
-import { IVirtualFolderProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
-import { VirtualFolder, VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
-import { VirtualFolderModule } from "@backend/Modules/VirtualFolder/VirtualFolder.module";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { ProvidersModule } from "@backend/Providers/Providers.module";
-import { TestValues } from "@backend/Utils/PredefinedValues";
 import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
+import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
+import { VirtualFolder, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolderModule } from "Modules/VirtualFolder/VirtualFolder.module";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
+import { ProvidersModule } from "Providers/Providers.module";
+import { TestValues } from "Utils/PredefinedValues";
 
 describe("VirtualFolderProvider", () => {
 	let provider: IVirtualFolderProvider;

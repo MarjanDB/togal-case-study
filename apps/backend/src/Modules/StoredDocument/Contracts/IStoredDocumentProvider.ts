@@ -1,11 +1,6 @@
-import {
-	StoredDocument,
-	StoredDocumentDto,
-	StoredDocumentHash,
-	StoredDocumentId,
-} from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { Injectable } from "@nestjs/common";
+import { StoredDocument, StoredDocumentDto, StoredDocumentHash, StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import typia from "typia";
 
 @Injectable()

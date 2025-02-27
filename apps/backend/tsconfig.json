@@ -1,13 +1,16 @@
 {
-	"extends": "../../tsconfig.base.json",
+	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"module": "ES2022",
-		"moduleResolution": "node",
+		"target": "ESNext",
+		"moduleResolution": "node10",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"strictNullChecks": true,
-		"strict": true,
-		"baseUrl": "."
+		"baseUrl": "src",
+		"rootDir": ".",
+		"outDir": "dist",
+		"tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+		"types": ["node", "multer", "vite/client", "vitest/globals"]
 	},
 	"files": [],
 	"include": [],

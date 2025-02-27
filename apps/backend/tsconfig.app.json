@@ -1,10 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"compilerOptions": {
-		"tsBuildInfoFile": "out-tsc/backend/tsconfig.app.tsbuildinfo",
-		"outDir": "out-tsc/backend",
-		"types": ["node", "multer"]
-	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["out-tsc", "dist", "src/**/*.spec.ts", "src/**/*.test.ts", "eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"]
+	"compilerOptions": {},
+	"include": ["./src"],
+	"exclude": ["out-tsc", "dist", "src/**/*.spec.ts", "src/**/*.test.ts", "eslint.config.mjs"]
 }

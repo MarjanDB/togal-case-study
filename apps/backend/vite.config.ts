@@ -7,7 +7,7 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	root: __dirname,
-	cacheDir: "../../node_modules/.vite/apps/backend",
+	cacheDir: "node_modules/.vite/apps/backend",
 	server: {
 		port: 4200,
 		host: "localhost",
@@ -55,7 +55,7 @@ export default defineConfig({
 	//  plugins: [ nxViteTsPaths() ],
 	// },
 	build: {
-		outDir: "../../dist/apps/backend",
+		outDir: "dist",
 		emptyOutDir: true,
 		reportCompressedSize: true,
 		commonjsOptions: {
@@ -70,7 +70,7 @@ export default defineConfig({
 		reporters: ["basic"],
 		disableConsoleIntercept: true,
 		coverage: {
-			reportsDirectory: "../../coverage/apps/backend",
+			reportsDirectory: "coverage/apps/backend",
 			provider: "v8",
 		},
 	},

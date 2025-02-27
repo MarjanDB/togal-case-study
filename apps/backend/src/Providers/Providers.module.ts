@@ -1,8 +1,8 @@
-import { PostgresqlProviderModule } from "@backend/Providers/PostgresqlProvider/PostgresqlProvider.module";
-import { TimeProviderModule } from "@backend/Providers/TimeProvider/TimeProvider.module";
-import { UniqueIdentifierProviderModule } from "@backend/Providers/UniqueIdentifierProvider/UniqueIdentifierProvider.module";
 import { Global, Logger, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { PostgresqlProviderModule } from "Providers/PostgresqlProvider/PostgresqlProvider.module";
+import { TimeProviderModule } from "Providers/TimeProvider/TimeProvider.module";
+import { UniqueIdentifierProviderModule } from "Providers/UniqueIdentifierProvider/UniqueIdentifierProvider.module";
 
 @Global()
 @Module({

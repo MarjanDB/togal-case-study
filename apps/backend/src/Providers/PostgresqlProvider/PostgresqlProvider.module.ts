@@ -1,9 +1,9 @@
-import { IPostgresqlDatabaseFactory } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseFactory";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { PostgresqlDatabaseConfig } from "@backend/Providers/PostgresqlProvider/Contracts/PostgresqlDatabaseConfig";
-import { PostgresqlDatabaseFactory } from "@backend/Providers/PostgresqlProvider/Factories/PostgresqlDatabaseFactory";
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { IPostgresqlDatabaseFactory } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseFactory";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
+import { PostgresqlDatabaseConfig } from "Providers/PostgresqlProvider/Contracts/PostgresqlDatabaseConfig";
+import { PostgresqlDatabaseFactory } from "Providers/PostgresqlProvider/Factories/PostgresqlDatabaseFactory";
 
 @Module({
 	imports: [],

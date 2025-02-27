@@ -1,9 +1,9 @@
-import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "@backend/Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
-import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentDto, VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { Inject, NotFoundException } from "@nestjs/common";
+import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
+import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { VirtualDocument, VirtualDocumentDto, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class VirtualDocumentProvider implements IVirtualDocumentProvider {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}

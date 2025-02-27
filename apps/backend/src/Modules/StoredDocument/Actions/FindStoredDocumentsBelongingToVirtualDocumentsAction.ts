@@ -1,7 +1,7 @@
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocument, StoredDocumentDto, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
 import { Inject, Injectable } from "@nestjs/common";
+import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocument, StoredDocumentDto, StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { group } from "radashi";
 import typia from "typia";
 

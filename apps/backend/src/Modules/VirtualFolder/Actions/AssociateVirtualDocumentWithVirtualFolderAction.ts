@@ -1,7 +1,7 @@
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { IVirtualFolderVirtualDocumentsProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
-import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
 import { Inject, Injectable } from "@nestjs/common";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { IVirtualFolderVirtualDocumentsProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
+import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
 @Injectable()
 export class AssociateVirtualDocumentWithVirtualFolderAction {

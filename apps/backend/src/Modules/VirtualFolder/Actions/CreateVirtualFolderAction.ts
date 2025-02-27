@@ -1,8 +1,8 @@
-import { IVirtualFolderProvider } from "@backend/Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
-import { VirtualFolder, VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
-import { IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { Inject, Injectable } from "@nestjs/common";
+import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
+import { VirtualFolder, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
+import { IUniqueIdentifierProvider } from "Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 
 @Injectable()
 export class CreateVirtualFolderAction {

@@ -1,5 +1,5 @@
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "@backend/Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import typia from "typia";
 
 export class VirtualFolderVirtualDocument {

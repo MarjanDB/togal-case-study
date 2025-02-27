@@ -4,12 +4,6 @@
 	"sourceRoot": "apps/backend/src",
 	"implicitDependencies": ["contracts"],
 	"targets": {
-		"build": {
-			"executor": "@nx/vite:build",
-			"options": {
-				"outputPath": "dist/apps/my-app"
-			}
-		},
 		"serve": {
 			"executor": "@nx/vite:dev-server",
 			"defaultConfiguration": "development",
@@ -24,9 +18,6 @@
 					"buildTarget": "backend:build:production"
 				}
 			}
-		},
-		"test": {
-			"executor": "@nx/vite:test"
 		}
 	}
 }

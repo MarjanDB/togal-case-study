@@ -1,6 +1,6 @@
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
-import { LuxonTimeProvider } from "@backend/Providers/TimeProvider/Providers/LuxonTimeProvider";
 import { Module } from "@nestjs/common";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
+import { LuxonTimeProvider } from "Providers/TimeProvider/Providers/LuxonTimeProvider";
 
 @Module({
 	imports: [],

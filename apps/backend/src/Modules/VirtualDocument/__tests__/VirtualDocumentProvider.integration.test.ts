@@ -1,11 +1,11 @@
-import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualDocumentModule } from "@backend/Modules/VirtualDocument/VirtualDocument.module";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { ProvidersModule } from "@backend/Providers/Providers.module";
-import { TestValues } from "@backend/Utils/PredefinedValues";
 import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
+import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocumentModule } from "Modules/VirtualDocument/VirtualDocument.module";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
+import { ProvidersModule } from "Providers/Providers.module";
+import { TestValues } from "Utils/PredefinedValues";
 
 describe("VirtualDocumentProvider", () => {
 	let provider: IVirtualDocumentProvider;

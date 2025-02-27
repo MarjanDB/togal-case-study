@@ -1,7 +1,7 @@
-import { StoredDocumentsController } from "@backend/Delivery/StoredDocuments.controller";
-import { VirtualDocumentsController } from "@backend/Delivery/VirtualDocuments.controller";
-import { VirtualFoldersController } from "@backend/Delivery/VirtualFolders.controller";
 import { Module } from "@nestjs/common";
+import { StoredDocumentsController } from "Delivery/StoredDocuments.controller";
+import { VirtualDocumentsController } from "Delivery/VirtualDocuments.controller";
+import { VirtualFoldersController } from "Delivery/VirtualFolders.controller";
 
 @Module({
 	imports: [],

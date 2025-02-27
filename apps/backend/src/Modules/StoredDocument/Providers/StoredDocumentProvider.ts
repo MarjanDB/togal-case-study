@@ -1,13 +1,8 @@
-import { IStoredDocumentProvider, IStoredDocumentProviderTypes } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import {
-	StoredDocument,
-	StoredDocumentDto,
-	StoredDocumentHash,
-	StoredDocumentId,
-} from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { Inject, NotFoundException } from "@nestjs/common";
+import { IStoredDocumentProvider, IStoredDocumentProviderTypes } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocument, StoredDocumentDto, StoredDocumentHash, StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class StoredDocumentProvider implements IStoredDocumentProvider {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}

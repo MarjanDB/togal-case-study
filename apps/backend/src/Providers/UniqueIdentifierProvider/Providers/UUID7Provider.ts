@@ -1,6 +1,6 @@
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
-import { IdentifierOptions, IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { Inject, Injectable } from "@nestjs/common";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
+import { IdentifierOptions, IUniqueIdentifierProvider } from "Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { v7 as uuidv7 } from "uuid";
 
 @Injectable()

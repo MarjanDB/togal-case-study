@@ -1,9 +1,9 @@
-import { CheckForExistingStoredDocumentAction } from "@backend/Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { ITimeProvider } from "@backend/Providers/TimeProvider/Contracts/ITimeProvider";
-import { IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { CheckForExistingStoredDocumentAction } from "Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
+import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
+import { IUniqueIdentifierProvider } from "Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
 
 @Injectable()
 export class StoreNewDocumentAction {

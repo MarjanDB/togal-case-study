@@ -1,6 +1,6 @@
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocumentHash } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
 import { Inject, Injectable } from "@nestjs/common";
+import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocumentHash } from "Modules/StoredDocument/Entities/StoredDocument";
 
 @Injectable()
 export class CheckForExistingStoredDocumentAction {

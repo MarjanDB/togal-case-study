@@ -1,16 +1,16 @@
-import { IStoredDocumentProvider } from "@backend/Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "@backend/Modules/StoredDocument/Entities/StoredDocument";
-import { StoredDocumentModule } from "@backend/Modules/StoredDocument/StoredDocument.module";
-import { IVirtualDocumentProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { IVirtualDocumentStoredDocumentsProvider } from "@backend/Modules/VirtualDocument/Contracts/IVirtualDocumentStoredDocumentsProvider";
-import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "@backend/Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualDocumentModule } from "@backend/Modules/VirtualDocument/VirtualDocument.module";
-import { IPostgresDatabaseProvider } from "@backend/Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
-import { ProvidersModule } from "@backend/Providers/Providers.module";
-import { IUniqueIdentifierProvider } from "@backend/Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
-import { TestValues } from "@backend/Utils/PredefinedValues";
 import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
+import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
+import { StoredDocument, StoredDocumentHash, StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
+import { StoredDocumentModule } from "Modules/StoredDocument/StoredDocument.module";
+import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
+import { IVirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentStoredDocumentsProvider";
+import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocumentModule } from "Modules/VirtualDocument/VirtualDocument.module";
+import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
+import { ProvidersModule } from "Providers/Providers.module";
+import { IUniqueIdentifierProvider } from "Providers/UniqueIdentifierProvider/Contracts/IUniqueIdentifierProvider";
+import { TestValues } from "Utils/PredefinedValues";
 
 describe("StoredDocumentProvider", () => {
 	let provider: IStoredDocumentProvider;

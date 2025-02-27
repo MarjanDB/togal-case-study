@@ -1,4 +1,4 @@
-import { Nominal } from "@backend/Utils/NominalType";
+import { Nominal } from "Utils/NominalType";
 import { UUID } from "crypto";
 import { DateTime } from "luxon";
 import typia from "typia";
