@@ -27,15 +27,16 @@ export default [
 				vitest: true,
 			},
 			parserOptions: {
+				projectService: true,
 				project: "tsconfig.json",
 				tsconfigRootDir: ".",
 				sourceType: "module",
+				allowDefaultProject: true,
 			},
 		},
 		plugins: {
 			tseslint: tseslint.plugin,
 		},
-		ignores: ["eslint.config.mjs"],
 		rules: {
 			"@typescript-eslint/interface-name-prefix": "off",
 			"@typescript-eslint/explicit-function-return-type": "error",
@@ -47,4 +48,17 @@ export default [
 	},
 	prettier,
 	prettierConfig,
+	{
+		ignores: ["eslint.config.mjs", "**/dist/**", "dist/**"],
+	},
+	{
+		files: ["vitest.workspace.ts"],
+		languageOptions: {
+			parser: tseslint.parser,
+			parserOptions: {
+				project: null,
+				projectService: false,
+			},
+		},
+	},
 ];

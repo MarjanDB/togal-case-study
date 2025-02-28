@@ -11,8 +11,6 @@
 		"outDir": "dist",
 		"types": ["node", "multer", "vite/client", "vitest/globals"]
 	},
-	"files": [],
-	"include": [],
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
