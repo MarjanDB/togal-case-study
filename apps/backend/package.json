@@ -2,6 +2,7 @@
 	"name": "@togal-case-study/backend",
 	"version": "0.0.1",
 	"private": true,
+	"scripts": {},
 	"type": "module",
 	"devDependencies": {
 		"@nestjs/cli": "^11.0.4",
@@ -12,6 +13,7 @@
 		"@nestjs/schematics": "^11.0.1",
 		"@nestjs/swagger": "^11.0.4",
 		"@nestjs/testing": "^11.0.10",
+		"@togal-case-study/contracts": "workspace:*",
 		"@types/luxon": "^3.4.2",
 		"@types/multer": "^1.4.12",
 		"class-transformer": "^0.5.1",
@@ -21,12 +23,7 @@
 		"radashi": "^12.3.4",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.2",
-		"ts-patch": "^3.3.0",
-		"typescript": "~5.7.3",
-		"typia": "^7.6.4",
 		"uuid": "^11.1.0",
-		"vite-plugin-node": "^4.0.0",
-		"@togal-case-study/contracts": "workspace:*"
-	},
-	"scripts": {}
+		"vite-plugin-node": "^4.0.0"
+	}
 }

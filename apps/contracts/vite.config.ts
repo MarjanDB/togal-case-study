@@ -1,5 +1,6 @@
 /// <reference types='vitest' />
 import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
+import UnpluginTypia from "@ryoppippi/unplugin-typia/vite";
 import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
@@ -13,6 +14,7 @@ export default defineConfig({
 		nxCopyAssetsPlugin(["*.md"]),
 		tsconfigPaths({ root: __dirname }),
 		dts({ entryRoot: path.join(__dirname, "src"), tsconfigPath: "tsconfig.lib.json" }),
+		UnpluginTypia(),
 	],
 	// Uncomment this if you are using workers.
 	// worker: {

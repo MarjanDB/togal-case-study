@@ -1,9 +1,8 @@
 import { nxCopyAssetsPlugin } from "@nx/vite/plugins/nx-copy-assets.plugin";
 import UnpluginTypia from "@ryoppippi/unplugin-typia/vite";
 import { VitePluginNode } from "vite-plugin-node";
-import { defineConfig } from "vitest/config";
-
 import viteTsConfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
 	root: __dirname,
@@ -19,6 +18,7 @@ export default defineConfig({
 	plugins: [
 		//nxViteTsPaths(), // broken
 		viteTsConfigPaths(),
+		UnpluginTypia(),
 		nxCopyAssetsPlugin(["*.md"]),
 		VitePluginNode({
 			// Nodejs native Request adapter
@@ -48,7 +48,6 @@ export default defineConfig({
 			// swc configs, see [swc doc](https://swc.rs/docs/configuration/swcrc)
 			swcOptions: {},
 		}),
-		UnpluginTypia(),
 	],
 	// Uncomment this if you are using workers.
 	// worker: {
@@ -57,10 +56,6 @@ export default defineConfig({
 	build: {
 		outDir: "dist",
 		emptyOutDir: true,
-		reportCompressedSize: true,
-		commonjsOptions: {
-			transformMixedEsModules: true,
-		},
 	},
 	test: {
 		watch: false,
@@ -72,6 +67,9 @@ export default defineConfig({
 		coverage: {
 			reportsDirectory: "coverage/apps/backend",
 			provider: "v8",
+		},
+		typecheck: {
+			enabled: true,
 		},
 	},
 });
