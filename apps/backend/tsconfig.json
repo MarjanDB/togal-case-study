@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"module": "ESNext",
 		"target": "ESNext",
-		"moduleResolution": "bundler",
+		"moduleResolution": "node10",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"baseUrl": "src",
@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "./tsconfig.spec.json"
+		},
+		{
+			"path": "../contracts/tsconfig.json"
 		}
 	]
 }

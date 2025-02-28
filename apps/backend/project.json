@@ -4,20 +4,19 @@
 	"sourceRoot": "apps/backend/src",
 	"implicitDependencies": ["contracts"],
 	"targets": {
-		"serve": {
-			"executor": "@nx/vite:dev-server",
-			"defaultConfiguration": "development",
+		"build": {
+			"executor": "@nx/js:tsc",
 			"options": {
-				"buildTarget": "backend:build"
+				"main": "apps/backend/src/main.ts",
+				"tsConfig": "apps/backend/tsconfig.app.json",
+				"outputPath": "dist/apps/backend"
 			},
-			"configurations": {
-				"development": {
-					"buildTarget": "backend:build:development"
-				},
-				"production": {
-					"buildTarget": "backend:build:production"
+			"dependsOn": [
+				{
+					"projects": "contracts",
+					"target": "build"
 				}
-			}
+			]
 		}
 	}
 }

@@ -1,5 +1,11 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export namespace DownloadStoredDocument {
-	export interface GetParameters {
-		storedDocument: string;
+	export class GetParameters {
+		@ApiProperty({
+			description: "The ID of the stored document to download",
+			type: "string",
+		})
+		storedDocument!: string;
 	}
 }

@@ -1,7 +1,7 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"tsBuildInfoFile": "out-stc/tsconfig.dist.tsbuildinfo"
+		"tsBuildInfoFile": "out-tsc/tsconfig.dist.tsbuildinfo"
 	},
 	"include": ["./src"],
 	"exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
