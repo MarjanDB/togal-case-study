@@ -18,14 +18,6 @@
 				}
 			]
 		},
-		"test": {
-			"executor": "@nx/jest:jest",
-			"options": {
-				"jestConfig": "apps/backend/jest.config.ts",
-				"codeCoverage": true,
-				"transformers": ["typia/lib/transform"]
-			}
-		},
 		"typecheck": {
 			"executor": "@nx/js:tsc",
 			"options": {
