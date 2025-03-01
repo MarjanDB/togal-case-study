@@ -1,14 +1,14 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentId, VirtualDocumentType } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { VirtualDocumentModule } from "Modules/VirtualDocument/VirtualDocument.module";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { ProvidersModule } from "Providers/Providers.module";
 import { TestValues } from "Utils/PredefinedValues";
 
 describe("VirtualDocumentProvider", () => {
-	let provider: IVirtualDocumentProvider;
+	let provider: IVirtualDocumentProvider.Interface;
 	let database: IPostgresDatabaseProvider;
 	let module: TestingModule;
 
@@ -21,7 +21,7 @@ describe("VirtualDocumentProvider", () => {
 
 		await module.init();
 
-		provider = module.get<IVirtualDocumentProvider>(IVirtualDocumentProvider);
+		provider = module.get<IVirtualDocumentProvider.Interface>(IVirtualDocumentProvider.Interface);
 
 		database = module.get<IPostgresDatabaseProvider>(IPostgresDatabaseProvider);
 
@@ -35,14 +35,14 @@ describe("VirtualDocumentProvider", () => {
 	});
 
 	it("should create a virtual document", async () => {
-		const document = new VirtualDocument(
-			TestValues.Identifiers.INVALID_UUID as VirtualDocumentId,
+		const document = new VirtualDocument.Entity(
+			TestValues.Identifiers.INVALID_UUID as VirtualDocument.Types.IdType,
 			"test",
 			"test",
 			DateTime.now().toUTC(),
 			DateTime.now().toUTC(),
 			null,
-			VirtualDocumentType.PDF,
+			VirtualDocument.Types.DocumentType.PDF,
 		);
 
 		await provider.create(document);

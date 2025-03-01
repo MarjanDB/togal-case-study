@@ -3,33 +3,33 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiConsumes, ApiResponse } from "@nestjs/swagger";
 import { CreateVirtualDocument, GetVirtualDocuments } from "@togal-case-study/contracts";
 import { DateTime } from "luxon";
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
-import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocuments } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
+import { StoredDocumentEntry } from "Modules/StoredDocument/Entities/StoredDocumentEntry";
 import { GetVirtualDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
-import { VirtualDocument, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Controller("virtual-documents")
 export class VirtualDocumentsController {
 	public constructor(
-		@Inject(FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction)
-		private readonly findMostRecentStoredDocumentBelongingToVirtualDocumentsAction: FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction,
-		@Inject(GetVirtualDocumentsAction)
-		private readonly getVirtualDocumentsAction: GetVirtualDocumentsAction,
+		@Inject(FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action)
+		private readonly findMostRecentStoredDocumentBelongingToVirtualDocumentsAction: FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action,
+		@Inject(GetVirtualDocumentsAction.Action)
+		private readonly getVirtualDocumentsAction: GetVirtualDocumentsAction.Action,
 	) {}
 
 	@Post("get-documents")
 	@ApiBody({ type: GetVirtualDocuments.Parameters })
 	@ApiResponse({ type: GetVirtualDocuments.Response })
 	async getStoredDocumentsForVirtualDocuments(@Body() body: GetVirtualDocuments.Parameters): Promise<GetVirtualDocuments.Response> {
-		const virtualDocumentIds: VirtualDocumentId[] = body.virtualDocumentIds as VirtualDocumentId[];
+		const virtualDocumentIds: VirtualDocument.Types.IdType[] = body.virtualDocumentIds as VirtualDocument.Types.IdType[];
 
 		const storedDocuments = await this.findMostRecentStoredDocumentBelongingToVirtualDocumentsAction.execute(virtualDocumentIds);
 
 		const virtualDocuments = await this.getVirtualDocumentsAction.execute(virtualDocumentIds);
 
 		const virtualDocumentAndStoredDocumentLookup: Record<
-			VirtualDocumentId,
-			{ virtualDocument: VirtualDocument; storedDocument: StoredDocument }
+			VirtualDocument.Types.IdType,
+			{ virtualDocument: VirtualDocument.Entity; storedDocument: StoredDocumentEntry.Entity }
 		> = {};
 
 		for (const virtualDocument of virtualDocuments) {

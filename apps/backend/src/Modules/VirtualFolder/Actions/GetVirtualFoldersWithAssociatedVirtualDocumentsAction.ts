@@ -1,41 +1,44 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
-import { VirtualFolder, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
-@Injectable()
-export class GetVirtualFoldersWithAssociatedVirtualDocumentsAction {
-	public constructor(@Inject(IVirtualFolderProvider) private readonly virtualFolderProvider: IVirtualFolderProvider) {}
+export namespace GetVirtualFoldersWithAssociatedVirtualDocumentsAction {
+	@Injectable()
+	export class Action {
+		public constructor(@Inject(IVirtualFolderProvider.Interface) private readonly virtualFolderProvider: IVirtualFolderProvider.Interface) {}
 
-	public async execute(): Promise<GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[]> {
-		const virtualFolders = await this.virtualFolderProvider.findAllWithAssociatedVirtualDocuments();
+		public async execute(): Promise<Types.VirtualFolderWithAssociatedVirtualDocuments[]> {
+			const virtualFolders = await this.virtualFolderProvider.findAllWithAssociatedVirtualDocuments();
 
-		const virtualFolderDefinitions: Record<VirtualFolderId, VirtualFolder> = {};
-		const associatedVirtualDocuments: Record<VirtualFolderId, VirtualDocumentId[]> = {};
+			const virtualFolderDefinitions: Record<VirtualFolder.Types.IdType, VirtualFolder.Entity> = {};
+			const associatedVirtualDocuments: Record<VirtualFolder.Types.IdType, VirtualDocument.Types.IdType[]> = {};
 
-		for (const virtualFolder of virtualFolders) {
-			virtualFolderDefinitions[virtualFolder.id] = VirtualFolder.fromDto(virtualFolder);
-			if (virtualFolder.virtual_document_id) {
-				associatedVirtualDocuments[virtualFolder.id] = [
-					...(associatedVirtualDocuments[virtualFolder.id] ?? []),
-					virtualFolder.virtual_document_id,
-				];
+			for (const virtualFolder of virtualFolders) {
+				virtualFolderDefinitions[virtualFolder.id as VirtualFolder.Types.IdType] = VirtualFolder.Entity.fromDto(virtualFolder);
+				if (virtualFolder.virtual_document_id) {
+					associatedVirtualDocuments[virtualFolder.id as VirtualFolder.Types.IdType] = [
+						...(associatedVirtualDocuments[virtualFolder.id as VirtualFolder.Types.IdType] ?? []),
+						virtualFolder.virtual_document_id as VirtualDocument.Types.IdType,
+					];
+				}
 			}
-		}
 
-		const virtualFoldersWithAssociatedVirtualDocuments: GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes.VirtualFolderWithAssociatedVirtualDocuments[] =
-			Object.keys(virtualFolderDefinitions).map((virtualFolderId) => ({
-				virtualFolder: virtualFolderDefinitions[virtualFolderId as VirtualFolderId],
-				virtualDocumentIds: associatedVirtualDocuments[virtualFolderId as VirtualFolderId] ?? [],
+			const virtualFoldersWithAssociatedVirtualDocuments: Types.VirtualFolderWithAssociatedVirtualDocuments[] = Object.keys(
+				virtualFolderDefinitions,
+			).map((virtualFolderId) => ({
+				virtualFolder: virtualFolderDefinitions[virtualFolderId as VirtualFolder.Types.IdType],
+				virtualDocumentIds: associatedVirtualDocuments[virtualFolderId as VirtualFolder.Types.IdType] ?? [],
 			}));
 
-		return virtualFoldersWithAssociatedVirtualDocuments;
+			return virtualFoldersWithAssociatedVirtualDocuments;
+		}
 	}
-}
 
-export namespace GetVirtualFoldersWithAssociatedVirtualDocumentsActionTypes {
-	export type VirtualFolderWithAssociatedVirtualDocuments = {
-		virtualFolder: VirtualFolder;
-		virtualDocumentIds: VirtualDocumentId[];
-	};
+	export namespace Types {
+		export type VirtualFolderWithAssociatedVirtualDocuments = {
+			virtualFolder: VirtualFolder.Entity;
+			virtualDocumentIds: VirtualDocument.Types.IdType[];
+		};
+	}
 }

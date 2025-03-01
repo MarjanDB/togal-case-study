@@ -9,7 +9,7 @@
 			"options": {
 				"main": "apps/backend/src/main.ts",
 				"tsConfig": "apps/backend/tsconfig.app.json",
-				"outputPath": "dist/apps/backend"
+				"outputPath": "apps/backend/dist"
 			},
 			"dependsOn": [
 				{
@@ -17,6 +17,22 @@
 					"target": "build"
 				}
 			]
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"options": {
+				"jestConfig": "apps/backend/jest.config.ts",
+				"codeCoverage": true,
+				"transformers": ["typia/lib/transform"]
+			}
+		},
+		"typecheck": {
+			"executor": "@nx/js:tsc",
+			"options": {
+				"main": "apps/backend/src/main.ts",
+				"tsConfig": "apps/backend/tsconfig.app.json",
+				"outputPath": "apps/backend/out-tsc/typecheck"
+			}
 		}
 	}
 }

@@ -1,14 +1,30 @@
 import { Injectable } from "@nestjs/common";
-import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
-import { VirtualDocument, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import typia from "typia";
 
-@Injectable()
-export abstract class IVirtualDocumentProvider {
-	abstract create(document: VirtualDocument): Promise<void>;
-	abstract findById(id: VirtualDocumentId): Promise<VirtualDocument>;
-	abstract findByIds(ids: VirtualDocumentId[]): Promise<VirtualDocument[]>;
-	abstract findForVirtualFolder(
-		folderIds: VirtualFolderId[],
-	): Promise<GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes.QueryResult[]>;
+export namespace IVirtualDocumentProvider {
+	@Injectable()
+	export abstract class Interface {
+		abstract create(document: VirtualDocument.Entity): Promise<void>;
+		abstract findById(id: VirtualDocument.Types.IdType): Promise<VirtualDocument.Entity>;
+		abstract findByIds(ids: VirtualDocument.Types.IdType[]): Promise<VirtualDocument.Entity[]>;
+		abstract findForVirtualFolder(
+			folderIds: VirtualFolder.Types.IdType[],
+		): Promise<Types.VirtualDocumentWithMostRecentStoredDocument.QueryResult[]>;
+	}
+
+	export namespace Types {
+		export namespace VirtualDocumentWithMostRecentStoredDocument {
+			export type QueryResult = VirtualDocument.Types.Dto & {
+				most_recent_stored_document: StoredDocument.Types.Dto["id"];
+			};
+
+			export const QueryResult = {
+				asserter: typia.createAssert<QueryResult>(),
+				asserterArray: typia.createAssert<QueryResult[]>(),
+			};
+		}
+	}
 }

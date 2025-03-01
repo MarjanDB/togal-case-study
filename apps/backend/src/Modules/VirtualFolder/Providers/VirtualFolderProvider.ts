@@ -1,60 +1,66 @@
 import { Inject, NotFoundException } from "@nestjs/common";
-import { IVirtualFolderProvider, IVirtualFolderProviderTypes } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
-import { VirtualFolder, VirtualFolderDto, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
-export class VirtualFolderProvider implements IVirtualFolderProvider {
+export class VirtualFolderProvider implements IVirtualFolderProvider.Interface {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}
 
-	public async create(folder: VirtualFolder): Promise<void> {
-		const dto = VirtualFolder.toDto(folder);
+	public async create(folder: VirtualFolder.Entity): Promise<void> {
+		const dto = VirtualFolder.Entity.toDto(folder);
 		await this.database.insert([dto], ["id", "name", "created_at", "updated_at", "deleted_at"], "virtual_folders");
 	}
 
-	public async findById(id: VirtualFolderId): Promise<VirtualFolder> {
-		const result = await this.database.query("SELECT * FROM virtual_folders WHERE id = $/id/", { id: id }, VirtualFolderDto.asserterArray);
+	public async findById(id: VirtualFolder.Types.IdType): Promise<VirtualFolder.Entity> {
+		const result = await this.database.query(
+			"SELECT * FROM virtual_folders WHERE id = $/id/",
+			{ id: id },
+			VirtualFolder.Types.Dto.asserterArray,
+		);
 
 		if (result.length === 0) {
 			throw new NotFoundException("Virtual folder not found");
 		}
 
-		return VirtualFolder.fromDto(result[0]);
+		return VirtualFolder.Entity.fromDto(result[0]);
 	}
 
-	public async findByIds(ids: VirtualFolderId[]): Promise<VirtualFolder[]> {
+	public async findByIds(ids: VirtualFolder.Types.IdType[]): Promise<VirtualFolder.Entity[]> {
 		const result = await this.database.query(
 			"SELECT * FROM virtual_folders WHERE id IN ($/ids:csv/) ORDER BY created_at DESC",
 			{ ids: ids },
-			VirtualFolderDto.asserterArray,
+			VirtualFolder.Types.Dto.asserterArray,
 		);
 
 		if (result.length === 0) {
-			throw new NotFoundException("Virtual folders not found");
+			throw new NotFoundException("Virtual folder not found");
 		}
 
-		return result.map(VirtualFolder.fromDto);
+		return result.map(VirtualFolder.Entity.fromDto);
 	}
 
-	public async findAll(): Promise<VirtualFolder[]> {
-		const result = await this.database.query("SELECT * FROM virtual_folders ORDER BY created_at DESC", {}, VirtualFolderDto.asserterArray);
+	public async findAll(): Promise<VirtualFolder.Entity[]> {
+		const result = await this.database.query(
+			"SELECT * FROM virtual_folders ORDER BY created_at DESC",
+			{},
+			VirtualFolder.Types.Dto.asserterArray,
+		);
 
-		return result.map(VirtualFolder.fromDto);
+		return result.map(VirtualFolder.Entity.fromDto);
 	}
 
 	public async findAllWithAssociatedVirtualDocuments(): Promise<
-		IVirtualFolderProviderTypes.VirtualFolderWithAssociatedVirtualDocumentsQuery[]
+		IVirtualFolderProvider.Types.VirtualFolderWithAssociatedVirtualDocumentsQuery[]
 	> {
 		const result = await this.database.query(
 			`
-			SELECT
-				vf.*,
-				vfvd.virtual_document_id
-			FROM virtual_folders AS vf
-			LEFT JOIN virtual_folders_virtual_documents AS vfvd ON vf.id = vfvd.virtual_folder_id
+			SELECT vf.*, vfvd.virtual_document_id
+			FROM virtual_folders vf
+			LEFT JOIN virtual_folders_virtual_documents vfvd ON vfvd.virtual_folder_id = vf.id
 			ORDER BY vf.created_at DESC
 			`,
 			{},
-			IVirtualFolderProviderTypes.VirtualFolderWithAssociatedVirtualDocumentsQuery.asserterArray,
+			IVirtualFolderProvider.Types.VirtualFolderWithAssociatedVirtualDocumentsQuery.asserterArray,
 		);
 
 		return result;

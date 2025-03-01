@@ -17,6 +17,9 @@ importers:
       '@nx/eslint-plugin':
         specifier: 20.4.6
         version: 20.4.6(@babel/traverse@7.26.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.20)(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-config-prettier@9.1.0(eslint@9.21.0))(eslint@9.21.0)(nx@20.4.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.7.3)
+      '@nx/jest':
+        specifier: 20.4.6
+        version: 20.4.6(@babel/traverse@7.26.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.20)(babel-plugin-macros@3.1.0)(nx@20.4.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(ts-node@10.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.20)(typescript@5.7.3))(typescript@5.7.3)
       '@nx/js':
         specifier: 20.4.6
         version: 20.4.6(@babel/traverse@7.26.9)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.20)(nx@20.4.6(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.7.3))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.7.3)

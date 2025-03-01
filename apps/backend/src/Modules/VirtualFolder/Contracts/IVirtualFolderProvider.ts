@@ -1,24 +1,25 @@
 import { Injectable } from "@nestjs/common";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolder, VirtualFolderDto, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import typia from "typia";
 
-@Injectable()
-export abstract class IVirtualFolderProvider {
-	abstract create(folder: VirtualFolder): Promise<void>;
-	abstract findById(id: VirtualFolderId): Promise<VirtualFolder>;
-	abstract findByIds(ids: VirtualFolderId[]): Promise<VirtualFolder[]>;
-	abstract findAll(): Promise<VirtualFolder[]>;
-	abstract findAllWithAssociatedVirtualDocuments(): Promise<IVirtualFolderProviderTypes.VirtualFolderWithAssociatedVirtualDocumentsQuery[]>;
-}
+export namespace IVirtualFolderProvider {
+	@Injectable()
+	export abstract class Interface {
+		abstract create(folder: VirtualFolder.Entity): Promise<void>;
+		abstract findById(id: VirtualFolder.Types.IdType): Promise<VirtualFolder.Entity>;
+		abstract findByIds(ids: VirtualFolder.Types.IdType[]): Promise<VirtualFolder.Entity[]>;
+		abstract findAll(): Promise<VirtualFolder.Entity[]>;
+		abstract findAllWithAssociatedVirtualDocuments(): Promise<Types.VirtualFolderWithAssociatedVirtualDocumentsQuery[]>;
+	}
 
-export namespace IVirtualFolderProviderTypes {
-	export type VirtualFolderWithAssociatedVirtualDocumentsQuery = VirtualFolderDto & {
-		virtual_document_id: VirtualDocumentId;
-	};
+	export namespace Types {
+		export type VirtualFolderWithAssociatedVirtualDocumentsQuery = VirtualFolder.Types.Dto & {
+			virtual_document_id: string;
+		};
 
-	export const VirtualFolderWithAssociatedVirtualDocumentsQuery = {
-		asserter: typia.createAssert<VirtualFolderWithAssociatedVirtualDocumentsQuery>(),
-		asserterArray: typia.createAssert<VirtualFolderWithAssociatedVirtualDocumentsQuery[]>(),
-	};
+		export const VirtualFolderWithAssociatedVirtualDocumentsQuery = {
+			asserter: typia.createAssert<VirtualFolderWithAssociatedVirtualDocumentsQuery>(),
+			asserterArray: typia.createAssert<VirtualFolderWithAssociatedVirtualDocumentsQuery[]>(),
+		};
+	}
 }

@@ -7,10 +7,10 @@ import { GetVirtualFoldersWithAssociatedVirtualDocumentsAction } from "Modules/V
 @Controller("virtual-folders")
 export class VirtualFoldersController {
 	public constructor(
-		@Inject(GetVirtualFoldersWithAssociatedVirtualDocumentsAction)
-		private readonly getVirtualFoldersAction: GetVirtualFoldersWithAssociatedVirtualDocumentsAction,
-		@Inject(CreateVirtualFolderAction)
-		private readonly createVirtualFolderAction: CreateVirtualFolderAction,
+		@Inject(GetVirtualFoldersWithAssociatedVirtualDocumentsAction.Action)
+		private readonly getVirtualFoldersAction: GetVirtualFoldersWithAssociatedVirtualDocumentsAction.Action,
+		@Inject(CreateVirtualFolderAction.Action)
+		private readonly createVirtualFolderAction: CreateVirtualFolderAction.Action,
 	) {}
 
 	@Get("all-folders")

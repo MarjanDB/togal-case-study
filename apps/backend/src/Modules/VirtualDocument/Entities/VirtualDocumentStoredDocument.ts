@@ -1,28 +1,35 @@
-import { StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import typia from "typia";
 
-export class VirtualDocumentStoredDocument {
-	public constructor(
-		public readonly virtualDocumentId: VirtualDocumentId,
-		public readonly storedDocumentId: StoredDocumentId,
-	) {}
+export namespace VirtualDocumentStoredDocument {
+	export class Entity {
+		public constructor(
+			public readonly virtualDocumentId: VirtualDocument.Types.IdType,
+			public readonly storedDocumentId: StoredDocument.Types.IdType,
+		) {}
 
-	public static fromDto(dto: VirtualDocumentStoredDocumentDto): VirtualDocumentStoredDocument {
-		return new VirtualDocumentStoredDocument(dto.virtual_document_id, dto.stored_document_id);
+		public static fromDto(dto: Types.Dto): Entity {
+			return new Entity(dto.virtual_document_id as VirtualDocument.Types.IdType, dto.stored_document_id as StoredDocument.Types.IdType);
+		}
+
+		public static toDto(document: Entity): Types.Dto {
+			return {
+				virtual_document_id: document.virtualDocumentId,
+				stored_document_id: document.storedDocumentId,
+			};
+		}
 	}
 
-	public static toDto(document: VirtualDocumentStoredDocument): VirtualDocumentStoredDocumentDto {
-		return { virtual_document_id: document.virtualDocumentId, stored_document_id: document.storedDocumentId };
+	export namespace Types {
+		export interface Dto {
+			virtual_document_id: string;
+			stored_document_id: string;
+		}
+
+		export const Dto = {
+			asserter: typia.createAssert<Dto>(),
+			asserterArray: typia.createAssert<Dto[]>(),
+		};
 	}
 }
-
-export interface VirtualDocumentStoredDocumentDto {
-	virtual_document_id: VirtualDocumentId;
-	stored_document_id: StoredDocumentId;
-}
-
-export const VirtualDocumentStoredDocumentDto = {
-	asserter: typia.createAssert<VirtualDocumentStoredDocumentDto>(),
-	asserterArray: typia.createAssert<VirtualDocumentStoredDocumentDto[]>(),
-};

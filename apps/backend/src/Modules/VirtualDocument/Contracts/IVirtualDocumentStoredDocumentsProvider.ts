@@ -1,8 +1,13 @@
 import { Injectable } from "@nestjs/common";
-import { StoredDocumentId } from "Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
-@Injectable()
-export abstract class IVirtualDocumentStoredDocumentsProvider {
-	abstract addStoredDocumentToVirtualDocument(virtualDocumentId: VirtualDocumentId, storedDocumentId: StoredDocumentId): Promise<void>;
+export namespace IVirtualDocumentStoredDocumentsProvider {
+	@Injectable()
+	export abstract class Interface {
+		abstract addStoredDocumentToVirtualDocument(
+			virtualDocumentId: VirtualDocument.Types.IdType,
+			storedDocumentId: StoredDocument.Types.IdType,
+		): Promise<void>;
+	}
 }

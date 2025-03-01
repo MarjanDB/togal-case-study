@@ -1,16 +1,18 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { IVirtualFolderVirtualDocumentsProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderVirtualDocumentsProvider";
-import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
-@Injectable()
-export class AssociateVirtualDocumentWithVirtualFolderAction {
-	public constructor(
-		@Inject(IVirtualFolderVirtualDocumentsProvider)
-		private readonly virtualFolderVirtualDocumentsProvider: IVirtualFolderVirtualDocumentsProvider,
-	) {}
+export namespace AssociateVirtualDocumentWithVirtualFolderAction {
+	@Injectable()
+	export class Action {
+		public constructor(
+			@Inject(IVirtualFolderVirtualDocumentsProvider.Interface)
+			private readonly virtualFolderVirtualDocumentsProvider: IVirtualFolderVirtualDocumentsProvider.Interface,
+		) {}
 
-	public async execute(virtualFolderId: VirtualFolderId, virtualDocumentId: VirtualDocumentId): Promise<void> {
-		await this.virtualFolderVirtualDocumentsProvider.addVirtualDocumentToVirtualFolder(virtualFolderId, virtualDocumentId);
+		public async execute(virtualFolderId: VirtualFolder.Types.IdType, virtualDocumentId: VirtualDocument.Types.IdType): Promise<void> {
+			await this.virtualFolderVirtualDocumentsProvider.addVirtualDocumentToVirtualFolder(virtualFolderId, virtualDocumentId);
+		}
 	}
 }

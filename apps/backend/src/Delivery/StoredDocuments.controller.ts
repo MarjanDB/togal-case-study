@@ -2,13 +2,13 @@ import { Controller, Get, Inject, Query } from "@nestjs/common";
 import { ApiOperation, ApiQuery, ApiResponse } from "@nestjs/swagger";
 import { GetStoredDocumentsForVirtualDocument } from "@togal-case-study/contracts";
 import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
 @Controller("stored-documents")
 export class StoredDocumentsController {
 	public constructor(
-		@Inject(FindStoredDocumentsBelongingToVirtualDocumentsAction)
-		private readonly findStoredDocumentsBelongingToVirtualDocumentsAction: FindStoredDocumentsBelongingToVirtualDocumentsAction,
+		@Inject(FindStoredDocumentsBelongingToVirtualDocumentsAction.Action)
+		private readonly findStoredDocumentsBelongingToVirtualDocumentsAction: FindStoredDocumentsBelongingToVirtualDocumentsAction.Action,
 	) {}
 
 	@Get("get-stored-documents-for-virtual-documents")
@@ -19,7 +19,7 @@ export class StoredDocumentsController {
 		@Query() query: GetStoredDocumentsForVirtualDocument.GetParameters,
 	): Promise<GetStoredDocumentsForVirtualDocument.Response> {
 		const storedDocuments = await this.findStoredDocumentsBelongingToVirtualDocumentsAction.execute([
-			query.virtualDocumentId as VirtualDocumentId,
+			query.virtualDocumentId as VirtualDocument.Types.IdType,
 		]);
 
 		const documents: GetStoredDocumentsForVirtualDocument.StoredDocumentForVirtualDocument[] = [];

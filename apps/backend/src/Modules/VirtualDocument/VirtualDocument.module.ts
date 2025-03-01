@@ -13,23 +13,23 @@ import { VirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/
 	imports: [StoredDocumentModule],
 	providers: [
 		{
-			provide: IVirtualDocumentProvider,
+			provide: IVirtualDocumentProvider.Interface,
 			useClass: VirtualDocumentProvider,
 		},
 		{
-			provide: IVirtualDocumentStoredDocumentsProvider,
+			provide: IVirtualDocumentStoredDocumentsProvider.Interface,
 			useClass: VirtualDocumentStoredDocumentsProvider,
 		},
-		CreateNewVirtualDocumentAction,
-		AssociateStoredDocumentWithVirtualDocumentAction,
-		GetVirtualDocumentsWithMostRecentStoredDocumentsAction,
-		GetVirtualDocumentsAction,
+		CreateNewVirtualDocumentAction.Action,
+		AssociateStoredDocumentWithVirtualDocumentAction.Action,
+		GetVirtualDocumentsWithMostRecentStoredDocumentsAction.Action,
+		GetVirtualDocumentsAction.Action,
 	],
 	exports: [
-		CreateNewVirtualDocumentAction,
-		AssociateStoredDocumentWithVirtualDocumentAction,
-		GetVirtualDocumentsWithMostRecentStoredDocumentsAction,
-		GetVirtualDocumentsAction,
+		CreateNewVirtualDocumentAction.Action,
+		AssociateStoredDocumentWithVirtualDocumentAction.Action,
+		GetVirtualDocumentsWithMostRecentStoredDocumentsAction.Action,
+		GetVirtualDocumentsAction.Action,
 	],
 })
 export class VirtualDocumentModule {}

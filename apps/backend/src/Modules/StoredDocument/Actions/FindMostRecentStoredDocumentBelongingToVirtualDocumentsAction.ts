@@ -1,32 +1,34 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
-import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
-import { VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { StoredDocumentEntry } from "Modules/StoredDocument/Entities/StoredDocumentEntry";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
-@Injectable()
-export class FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction {
-	public constructor(@Inject(IStoredDocumentProvider) private readonly storedDocumentProvider: IStoredDocumentProvider) {}
+export namespace FindMostRecentStoredDocumentBelongingToVirtualDocuments {
+	@Injectable()
+	export class Action {
+		public constructor(
+			@Inject(IStoredDocumentProvider.Interface) private readonly storedDocumentProvider: IStoredDocumentProvider.Interface,
+		) {}
 
-	public async execute(
-		virtualDocumentIds: VirtualDocumentId[],
-	): Promise<FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup> {
-		const result = await this.storedDocumentProvider.findMostRecentForVirtualDocuments(virtualDocumentIds);
+		public async execute(virtualDocumentIds: VirtualDocument.Types.IdType[]): Promise<Types.VirtualDocumentLookup> {
+			const result = await this.storedDocumentProvider.findMostRecentStoredDocumentEntriesForVirtualDocuments(virtualDocumentIds);
 
-		const resultsWithStoredDocuments = result.map((item) => ({
-			virtualDocumentId: item.virtual_document_id,
-			storedDocument: StoredDocument.fromDto(item),
-		}));
+			const resultsWithStoredDocuments = result.map((item) => ({
+				virtualDocumentId: item.virtual_document_id,
+				storedDocumentEntry: StoredDocumentEntry.Entity.fromDto(item),
+			}));
 
-		const lookup: FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes.VirtualDocumentLookup = {};
+			const lookup: Types.VirtualDocumentLookup = {};
 
-		for (const item of resultsWithStoredDocuments) {
-			lookup[item.virtualDocumentId as VirtualDocumentId] = item.storedDocument;
+			for (const item of resultsWithStoredDocuments) {
+				lookup[item.virtualDocumentId as VirtualDocument.Types.IdType] = item.storedDocumentEntry;
+			}
+
+			return lookup;
 		}
-
-		return lookup;
 	}
-}
 
-export namespace FindMostRecentStoredDocumentBelongingToVirtualDocumentsActionTypes {
-	export type VirtualDocumentLookup = Record<VirtualDocumentId, StoredDocument>;
+	export namespace Types {
+		export type VirtualDocumentLookup = Record<VirtualDocument.Types.IdType, StoredDocumentEntry.Entity>;
+	}
 }

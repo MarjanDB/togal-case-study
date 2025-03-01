@@ -10,16 +10,16 @@ import { VirtualFolderVirtualDocumentsProvider } from "Modules/VirtualFolder/Pro
 	imports: [],
 	providers: [
 		{
-			provide: IVirtualFolderProvider,
+			provide: IVirtualFolderProvider.Interface,
 			useClass: VirtualFolderProvider,
 		},
 		{
-			provide: IVirtualFolderVirtualDocumentsProvider,
+			provide: IVirtualFolderVirtualDocumentsProvider.Interface,
 			useClass: VirtualFolderVirtualDocumentsProvider,
 		},
-		GetVirtualFoldersWithAssociatedVirtualDocumentsAction,
-		CreateVirtualFolderAction,
+		GetVirtualFoldersWithAssociatedVirtualDocumentsAction.Action,
+		CreateVirtualFolderAction.Action,
 	],
-	exports: [GetVirtualFoldersWithAssociatedVirtualDocumentsAction, CreateVirtualFolderAction],
+	exports: [GetVirtualFoldersWithAssociatedVirtualDocumentsAction.Action, CreateVirtualFolderAction.Action],
 })
 export class VirtualFolderModule {}

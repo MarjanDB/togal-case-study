@@ -1,53 +1,53 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
-import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
+import { FindMostRecentStoredDocumentBelongingToVirtualDocuments } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
+import { StoredDocumentEntry } from "Modules/StoredDocument/Entities/StoredDocumentEntry";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
-import typia from "typia";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
-@Injectable()
-export class GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
-	public constructor(
-		@Inject(FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction)
-		private readonly findMostRecentStoredDocumentBelongingToVirtualDocumentAction: FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction,
-		@Inject(IVirtualDocumentProvider)
-		private readonly virtualDocumentProvider: IVirtualDocumentProvider,
-	) {}
+export namespace GetVirtualDocumentsWithMostRecentStoredDocumentsAction {
+	@Injectable()
+	export class Action {
+		public constructor(
+			@Inject(FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action)
+			private readonly findMostRecentStoredDocumentBelongingToVirtualDocumentAction: FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action,
+			@Inject(IVirtualDocumentProvider.Interface)
+			private readonly virtualDocumentProvider: IVirtualDocumentProvider.Interface,
+		) {}
 
-	public async execute(
-		virtualFolderId: VirtualFolderId,
-	): Promise<GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes.VirtualDocumentWithMostRecentStoredDocument[]> {
-		const virtualDocuments = await this.virtualDocumentProvider.findForVirtualFolder([virtualFolderId]);
-		const virtualDocumentIds = virtualDocuments.map((virtualDocument) => virtualDocument.id);
+		public async execute(virtualFolderId: VirtualFolder.Types.IdType): Promise<Types.VirtualDocumentLookup> {
+			const virtualDocuments = await this.virtualDocumentProvider.findForVirtualFolder([virtualFolderId]);
+			const virtualDocumentIds = virtualDocuments.map((virtualDocument) => virtualDocument.id as VirtualDocument.Types.IdType);
 
-		const mostRecentStoredDocuments = await this.findMostRecentStoredDocumentBelongingToVirtualDocumentAction.execute(virtualDocumentIds);
+			const mostRecentStoredDocuments =
+				await this.findMostRecentStoredDocumentBelongingToVirtualDocumentAction.execute(virtualDocumentIds);
 
-		const virtualDocumentsWithMostRecentStoredDocuments: GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes.VirtualDocumentWithMostRecentStoredDocument[] =
-			[];
+			const virtualDocumentsWithMostRecentStoredDocuments: Types.VirtualDocumentLookup = {};
 
-		for (const virtualDocument of virtualDocuments) {
-			virtualDocumentsWithMostRecentStoredDocuments.push({
-				...virtualDocument,
-				mostRecentStoredDocument: mostRecentStoredDocuments[virtualDocument.id],
-				// This is potentially unsafe, since in some odd edge case it could be possible that
-				// There is no matching stored document for the virtual document.
-			});
+			for (const virtualDocument of virtualDocuments) {
+				virtualDocumentsWithMostRecentStoredDocuments[virtualDocument.id as VirtualDocument.Types.IdType] =
+					new Types.VirtualDocumentWithMostRecentStoredDocumentEntity(
+						VirtualDocument.Entity.fromDto(virtualDocument),
+						mostRecentStoredDocuments[virtualDocument.id as VirtualDocument.Types.IdType],
+					);
+			}
+
+			return virtualDocumentsWithMostRecentStoredDocuments;
+		}
+	}
+
+	export namespace Types {
+		export class VirtualDocumentWithMostRecentStoredDocumentEntity {
+			public constructor(
+				public readonly virtualDocument: VirtualDocument.Entity,
+				public readonly mostRecentStoredDocument: StoredDocumentEntry.Entity,
+			) {}
 		}
 
-		return virtualDocumentsWithMostRecentStoredDocuments;
+		export type VirtualDocumentWithMostRecentStoredDocument = VirtualDocument.Entity & {
+			mostRecentStoredDocument: StoredDocumentEntry.Entity;
+		};
+
+		export type VirtualDocumentLookup = Record<VirtualDocument.Types.IdType, VirtualDocumentWithMostRecentStoredDocumentEntity>;
 	}
-}
-
-export namespace GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes {
-	export type VirtualDocumentWithMostRecentStoredDocument = VirtualDocument & {
-		mostRecentStoredDocument: StoredDocument;
-	};
-
-	export type QueryResult = VirtualDocumentWithMostRecentStoredDocument;
-
-	export const QueryResult = {
-		asserter: typia.createAssert<QueryResult>(),
-		asserterArray: typia.createAssert<QueryResult[]>(),
-	};
 }

@@ -1,49 +1,48 @@
 import { Inject, NotFoundException } from "@nestjs/common";
-import { GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentDto, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
-import { VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
-export class VirtualDocumentProvider implements IVirtualDocumentProvider {
+export class VirtualDocumentProvider implements IVirtualDocumentProvider.Interface {
 	public constructor(@Inject(IPostgresDatabaseProvider) private readonly database: IPostgresDatabaseProvider) {}
 
-	public async create(document: VirtualDocument): Promise<void> {
-		const dto = VirtualDocument.toDto(document);
+	public async create(document: VirtualDocument.Entity): Promise<void> {
+		const dto = VirtualDocument.Entity.toDto(document);
 		await this.database.insert([dto], ["id", "name", "description", "created_at", "updated_at", "deleted_at", "type"], "virtual_documents");
 	}
 
-	public async findById(id: VirtualDocumentId): Promise<VirtualDocument> {
+	public async findById(id: VirtualDocument.Types.IdType): Promise<VirtualDocument.Entity> {
 		const result = await this.database.query(
 			"SELECT * FROM virtual_documents WHERE id = $/id/",
 			{ id: id },
-			VirtualDocumentDto.asserterArray,
+			VirtualDocument.Types.Dto.asserterArray,
 		);
 
 		if (result.length === 0) {
 			throw new NotFoundException("Stored document not found");
 		}
 
-		return VirtualDocument.fromDto(result[0]);
+		return VirtualDocument.Entity.fromDto(result[0]);
 	}
 
-	public async findByIds(ids: VirtualDocumentId[]): Promise<VirtualDocument[]> {
+	public async findByIds(ids: VirtualDocument.Types.IdType[]): Promise<VirtualDocument.Entity[]> {
 		const result = await this.database.query(
 			"SELECT * FROM virtual_documents WHERE id IN ($/ids:csv/) ORDER BY created_at DESC",
 			{ ids: ids },
-			VirtualDocumentDto.asserterArray,
+			VirtualDocument.Types.Dto.asserterArray,
 		);
 
 		if (result.length === 0) {
 			throw new NotFoundException("Stored document not found");
 		}
 
-		return result.map(VirtualDocument.fromDto);
+		return result.map(VirtualDocument.Entity.fromDto);
 	}
 
 	public async findForVirtualFolder(
-		folderIds: VirtualFolderId[],
-	): Promise<GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes.QueryResult[]> {
+		folderIds: VirtualFolder.Types.IdType[],
+	): Promise<IVirtualDocumentProvider.Types.VirtualDocumentWithMostRecentStoredDocument.QueryResult[]> {
 		const result = await this.database.query(
 			`
 			SELECT vd.*, vfvds.virtual_folder_id
@@ -52,7 +51,7 @@ export class VirtualDocumentProvider implements IVirtualDocumentProvider {
 			WHERE vfvds.virtual_folder_id IN ($/virtual_folder_ids:csv/)
 			ORDER BY vd.created_at DESC`,
 			{ virtual_folder_ids: folderIds },
-			GetVirtualDocumentsWithMostRecentStoredDocumentsActionTypes.QueryResult.asserterArray,
+			IVirtualDocumentProvider.Types.VirtualDocumentWithMostRecentStoredDocument.QueryResult.asserterArray,
 		);
 
 		return result;

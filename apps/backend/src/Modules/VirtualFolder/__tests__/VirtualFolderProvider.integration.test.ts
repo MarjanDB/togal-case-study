@@ -1,14 +1,14 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { DateTime } from "luxon";
 import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
-import { VirtualFolder, VirtualFolderId } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 import { VirtualFolderModule } from "Modules/VirtualFolder/VirtualFolder.module";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 import { ProvidersModule } from "Providers/Providers.module";
 import { TestValues } from "Utils/PredefinedValues";
 
 describe("VirtualFolderProvider", () => {
-	let provider: IVirtualFolderProvider;
+	let provider: IVirtualFolderProvider.Interface;
 	let database: IPostgresDatabaseProvider;
 	let module: TestingModule;
 
@@ -21,7 +21,7 @@ describe("VirtualFolderProvider", () => {
 
 		await module.init();
 
-		provider = module.get<IVirtualFolderProvider>(IVirtualFolderProvider);
+		provider = module.get<IVirtualFolderProvider.Interface>(IVirtualFolderProvider.Interface);
 
 		database = module.get<IPostgresDatabaseProvider>(IPostgresDatabaseProvider);
 
@@ -35,8 +35,8 @@ describe("VirtualFolderProvider", () => {
 	});
 
 	it("should create a virtual folder", async () => {
-		const folder = new VirtualFolder(
-			TestValues.Identifiers.INVALID_UUID as VirtualFolderId,
+		const folder = new VirtualFolder.Entity(
+			TestValues.Identifiers.INVALID_UUID as VirtualFolder.Types.IdType,
 			"test",
 			DateTime.now().toUTC(),
 			DateTime.now().toUTC(),

@@ -1,12 +1,16 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
-import { VirtualDocument, VirtualDocumentId } from "Modules/VirtualDocument/Entities/VirtualDocument";
+import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 
-@Injectable()
-export class GetVirtualDocumentsAction {
-	public constructor(@Inject(IVirtualDocumentProvider) private readonly virtualDocumentProvider: IVirtualDocumentProvider) {}
+export namespace GetVirtualDocumentsAction {
+	@Injectable()
+	export class Action {
+		public constructor(
+			@Inject(IVirtualDocumentProvider.Interface) private readonly virtualDocumentProvider: IVirtualDocumentProvider.Interface,
+		) {}
 
-	public async execute(ids: VirtualDocumentId[]): Promise<VirtualDocument[]> {
-		return this.virtualDocumentProvider.findByIds(ids);
+		public async execute(ids: VirtualDocument.Types.IdType[]): Promise<VirtualDocument.Entity[]> {
+			return await this.virtualDocumentProvider.findByIds(ids);
+		}
 	}
 }
