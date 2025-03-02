@@ -18,7 +18,7 @@ export namespace IStoredDocumentProvider {
 	}
 
 	export namespace Types {
-		export type FindForVirtualDocuments = StoredDocument.Types.Dto & {
+		export type FindForVirtualDocuments = StoredDocument.Types.DtoWithData & {
 			virtual_document_id: string;
 		};
 
