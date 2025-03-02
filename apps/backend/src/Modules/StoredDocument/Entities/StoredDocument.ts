@@ -10,7 +10,7 @@ export namespace StoredDocument {
 			public readonly hash: Types.HashType,
 			public readonly storedAt: DateTime,
 			public readonly originalFileName: string,
-			public readonly data: Uint8Array,
+			public readonly data: Buffer,
 		) {}
 
 		public static fromDto(dto: Types.Dto): Entity {
@@ -38,12 +38,16 @@ export namespace StoredDocument {
 			hash: string;
 			stored_at: DateTime;
 			original_file_name: string;
-			data: Uint8Array;
+			data: Buffer;
+		};
+
+		export type DtoWithData = Dto & {
+			data: any; // Typia doesn't support Buffer and just defaults to UInt8Array
 		};
 
 		export const Dto = {
-			asserter: typia.createAssert<Dto>(),
-			asserterArray: typia.createAssert<Dto[]>(),
+			asserter: typia.createAssert<DtoWithData>(),
+			asserterArray: typia.createAssert<DtoWithData[]>(),
 		};
 	}
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
 
@@ -13,8 +13,12 @@ export namespace CheckForExistingStoredDocumentByIdAction {
 			try {
 				await this.storedDocumentProvider.findById(id);
 				return true;
-			} catch (_error) {
-				return false;
+			} catch (error) {
+				if (error instanceof NotFoundException) {
+					return false;
+				}
+
+				throw error;
 			}
 		}
 	}

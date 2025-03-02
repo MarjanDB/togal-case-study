@@ -3,7 +3,6 @@ import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStore
 import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { group } from "radashi";
-import typia from "typia";
 
 export namespace FindStoredDocumentsBelongingToVirtualDocumentsAction {
 	@Injectable()
@@ -40,14 +39,5 @@ export namespace FindStoredDocumentsBelongingToVirtualDocumentsAction {
 		export type StoredDocumentLookup = Record<StoredDocument.Types.IdType, StoredDocument.Entity>;
 
 		export type VirtualDocumentLookup = Record<VirtualDocument.Types.IdType, StoredDocumentLookup>;
-
-		export type QueryResult = StoredDocument.Types.Dto & {
-			virtual_document_id: string;
-		};
-
-		export const QueryResult = {
-			asserter: typia.createAssert<QueryResult>(),
-			asserterArray: typia.createAssert<QueryResult[]>(),
-		};
 	}
 }

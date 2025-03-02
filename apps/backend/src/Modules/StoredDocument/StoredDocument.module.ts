@@ -3,6 +3,7 @@ import { CheckForExistingStoredDocumentByHashAction } from "Modules/StoredDocume
 import { CheckForExistingStoredDocumentByIdAction } from "Modules/StoredDocument/Actions/CheckForExistingStoredDocumentByIdAction";
 import { FindMostRecentStoredDocumentBelongingToVirtualDocuments } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
+import { GetStoredDocumentAction } from "Modules/StoredDocument/Actions/GetStoredDocumentAction";
 import { StoreNewDocumentAction } from "Modules/StoredDocument/Actions/StoreNewDocumentAction";
 import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocumentProvider } from "Modules/StoredDocument/Providers/StoredDocumentProvider";
@@ -19,6 +20,7 @@ import { StoredDocumentProvider } from "Modules/StoredDocument/Providers/StoredD
 		FindStoredDocumentsBelongingToVirtualDocumentsAction.Action,
 		FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action,
 		CheckForExistingStoredDocumentByIdAction.Action,
+		GetStoredDocumentAction.Action,
 	],
 	exports: [
 		CheckForExistingStoredDocumentByHashAction.Action,
@@ -26,6 +28,7 @@ import { StoredDocumentProvider } from "Modules/StoredDocument/Providers/StoredD
 		FindStoredDocumentsBelongingToVirtualDocumentsAction.Action,
 		FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action,
 		CheckForExistingStoredDocumentByIdAction.Action,
+		GetStoredDocumentAction.Action,
 	],
 })
 export class StoredDocumentModule {}

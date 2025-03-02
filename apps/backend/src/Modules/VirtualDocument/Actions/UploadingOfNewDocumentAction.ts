@@ -21,7 +21,7 @@ export namespace UploadingOfNewDocumentAction {
 			fileName: string,
 			description: string | null,
 			originalFileName: string,
-			data: Uint8Array,
+			data: Buffer,
 		): Promise<UploadingOfNewDocumentAction.Types.UploadingOfNewDocumentActionReturnType> {
 			const virtualDocument = await this.createNewVirtualDocumentAction.execute(
 				fileName,

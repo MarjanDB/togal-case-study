@@ -76,7 +76,7 @@ export class VirtualDocumentsController {
 			body.name,
 			body.description,
 			body.file.originalName,
-			new Uint8Array(body.file.buffer),
+			body.file.buffer,
 		);
 
 		return {
@@ -103,7 +103,7 @@ export class VirtualDocumentsController {
 		const newDocument = await this.uploadingOfFileToExistingDocumentAction.execute(
 			body.virtualDocumentId as VirtualDocument.Types.IdType,
 			body.file.originalName,
-			new Uint8Array(body.file.buffer),
+			body.file.buffer,
 		);
 
 		return {

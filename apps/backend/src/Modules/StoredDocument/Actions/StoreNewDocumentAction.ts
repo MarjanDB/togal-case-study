@@ -19,7 +19,7 @@ export namespace StoreNewDocumentAction {
 			private readonly timeProvider: ITimeProvider,
 		) {}
 
-		public async execute(fileName: string, data: Uint8Array): Promise<StoredDocument.Entity> {
+		public async execute(fileName: string, data: Buffer): Promise<StoredDocument.Entity> {
 			const textDecoder = new TextDecoder();
 			const dataHash: StoredDocument.Types.HashType = <StoredDocument.Types.HashType>(
 				textDecoder.decode(await crypto.subtle.digest("SHA-256", data))

@@ -20,7 +20,7 @@ export namespace UploadingOfFileToExistingDocumentAction {
 		public async execute(
 			virtualDocumentId: VirtualDocument.Types.IdType,
 			originalFileName: string,
-			data: Uint8Array,
+			data: Buffer,
 		): Promise<Types.UploadingOfFileToExistingDocumentActionReturnType> {
 			// To check if the virtual document even exists
 			const virtualDocument = await this.virtualDocumentProvider.findById(virtualDocumentId);
