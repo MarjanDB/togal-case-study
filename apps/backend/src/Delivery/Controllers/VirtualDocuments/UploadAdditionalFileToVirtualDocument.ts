@@ -2,27 +2,14 @@ import { ApiProperty, ApiSchema } from "@nestjs/swagger";
 import { DateTime } from "luxon";
 import { IsFile, MemoryStoredFile } from "nestjs-form-data";
 
-export namespace CreateVirtualDocument {
-	@ApiSchema({ name: "CreateVirtualDocumentRequest" })
+export namespace UploadAdditionalFileToVirtualDocument {
+	@ApiSchema({ name: "UploadAdditionalFileToVirtualDocumentRequest" })
 	export class Parameters {
 		@ApiProperty({
-			description: "The name of the virtual document to create",
+			description: "The ID of the virtual document the file belongs to",
 			type: "string",
 		})
-		name!: string;
-
-		@ApiProperty({
-			description: "The description of the virtual document to create",
-			type: "string",
-			nullable: true,
-		})
-		description!: string | null;
-
-		@ApiProperty({
-			description: "The ID of the virtual folder the virtual document belongs to",
-			type: "string",
-		})
-		virtualFolderId!: string;
+		virtualDocumentId!: string;
 
 		@ApiProperty({
 			description: "The file to upload for the virtual document",
@@ -33,7 +20,7 @@ export namespace CreateVirtualDocument {
 		file!: MemoryStoredFile;
 	}
 
-	@ApiSchema({ name: "CreateVirtualDocumentResponse AssociatedStoredDocumentEntry" })
+	@ApiSchema({ name: "UploadAdditionalFileToVirtualDocumentResponse AssociatedStoredDocumentEntry" })
 	export class AssociatedStoredDocumentEntry {
 		@ApiProperty({
 			description: "The ID of the stored document",
@@ -54,7 +41,7 @@ export namespace CreateVirtualDocument {
 		originalFileName!: string;
 	}
 
-	@ApiSchema({ name: "CreateVirtualDocumentResponse" })
+	@ApiSchema({ name: "UploadAdditionalFileToVirtualDocumentResponse" })
 	export class Response {
 		@ApiProperty({
 			description: "The ID of the virtual document",

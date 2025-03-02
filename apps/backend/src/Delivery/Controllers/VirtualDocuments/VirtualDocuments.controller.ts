@@ -2,10 +2,12 @@ import { Body, Controller, Inject, Post } from "@nestjs/common";
 import { ApiConsumes, ApiResponse } from "@nestjs/swagger";
 import { CreateVirtualDocument } from "Delivery/Controllers/VirtualDocuments/CreateVirtualDocument";
 import { GetVirtualDocuments } from "Delivery/Controllers/VirtualDocuments/GetVirtualDocuments";
-import { DateTime } from "luxon";
+import { UploadAdditionalFileToVirtualDocument } from "Delivery/Controllers/VirtualDocuments/UploadAdditionalFileToVirtualDocument";
 import { FindMostRecentStoredDocumentBelongingToVirtualDocuments } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { StoredDocumentEntry } from "Modules/StoredDocument/Entities/StoredDocumentEntry";
 import { GetVirtualDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
+import { UploadingOfFileToExistingDocumentAction } from "Modules/VirtualDocument/Actions/UploadingOfFileToExistingDocumentAction";
+import { UploadingOfNewDocumentAction } from "Modules/VirtualDocument/Actions/UploadingOfNewDocumentAction";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { FormDataRequest } from "nestjs-form-data";
 
@@ -16,6 +18,10 @@ export class VirtualDocumentsController {
 		private readonly findMostRecentStoredDocumentBelongingToVirtualDocumentsAction: FindMostRecentStoredDocumentBelongingToVirtualDocuments.Action,
 		@Inject(GetVirtualDocumentsAction.Action)
 		private readonly getVirtualDocumentsAction: GetVirtualDocumentsAction.Action,
+		@Inject(UploadingOfNewDocumentAction.Action)
+		private readonly uploadingOfNewDocumentAction: UploadingOfNewDocumentAction.Action,
+		@Inject(UploadingOfFileToExistingDocumentAction.Action)
+		private readonly uploadingOfFileToExistingDocumentAction: UploadingOfFileToExistingDocumentAction.Action,
 	) {}
 
 	@Post("get-documents")
@@ -66,14 +72,51 @@ export class VirtualDocumentsController {
 	@ApiConsumes("multipart/form-data")
 	@ApiResponse({ status: 200, type: CreateVirtualDocument.Response })
 	async uploadDocument(@Body() body: CreateVirtualDocument.Parameters): Promise<CreateVirtualDocument.Response> {
-		console.log(body);
+		const newDocument = await this.uploadingOfNewDocumentAction.execute(
+			body.name,
+			body.description,
+			body.file.originalName,
+			new Uint8Array(body.file.buffer),
+		);
 
 		return {
-			id: "123",
-			name: "Test",
-			description: "Test",
-			createdAt: DateTime.now(),
-			updatedAt: DateTime.now(),
+			id: newDocument.virtualDocument.id,
+			name: newDocument.virtualDocument.name,
+			description: newDocument.virtualDocument.description,
+			createdAt: newDocument.virtualDocument.createdAt,
+			updatedAt: newDocument.virtualDocument.updatedAt,
+			associatedStoredDocumentEntry: {
+				id: newDocument.storedDocumentEntry.id,
+				storedAt: newDocument.storedDocumentEntry.storedAt,
+				originalFileName: newDocument.storedDocumentEntry.originalFileName,
+			},
+		};
+	}
+
+	@Post("upload-additional-file")
+	@FormDataRequest()
+	@ApiConsumes("multipart/form-data")
+	@ApiResponse({ status: 200, type: UploadAdditionalFileToVirtualDocument.Response })
+	async uploadAdditionalFile(
+		@Body() body: UploadAdditionalFileToVirtualDocument.Parameters,
+	): Promise<UploadAdditionalFileToVirtualDocument.Response> {
+		const newDocument = await this.uploadingOfFileToExistingDocumentAction.execute(
+			body.virtualDocumentId as VirtualDocument.Types.IdType,
+			body.file.originalName,
+			new Uint8Array(body.file.buffer),
+		);
+
+		return {
+			id: newDocument.virtualDocument.id,
+			name: newDocument.virtualDocument.name,
+			description: newDocument.virtualDocument.description,
+			createdAt: newDocument.virtualDocument.createdAt,
+			updatedAt: newDocument.virtualDocument.updatedAt,
+			associatedStoredDocumentEntry: {
+				id: newDocument.storedDocumentEntry.id,
+				storedAt: newDocument.storedDocumentEntry.storedAt,
+				originalFileName: newDocument.storedDocumentEntry.originalFileName,
+			},
 		};
 	}
 }
