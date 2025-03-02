@@ -58,6 +58,28 @@ export class VirtualDocumentProvider implements IVirtualDocumentProvider.Interfa
 		return result;
 	}
 
+	public async findAllWithAssociatedStoredDocuments(
+		ids: VirtualDocument.Types.IdType[],
+	): Promise<IVirtualDocumentProvider.Types.VirtualDocumentWithAssociatedStoredDocuments.QueryResult[]> {
+		const result = await this.database.query(
+			`SELECT
+				vd.*,
+				sd.id AS stored_document_id,
+				sd.hash AS stored_document_hash,
+				sd.stored_at AS stored_document_stored_at,
+				sd.original_file_name AS stored_document_original_file_name
+			FROM virtual_documents vd
+			INNER JOIN virtual_documents_stored_documents AS vdsd ON vdsd.virtual_document_id = vd.id
+			INNER JOIN stored_documents sd ON sd.id = vdsd.stored_document_id
+			WHERE vd.id IN ($/virtual_document_ids:csv/)
+			ORDER BY sd.stored_at DESC`,
+			{ virtual_document_ids: ids },
+			IVirtualDocumentProvider.Types.VirtualDocumentWithAssociatedStoredDocuments.QueryResult.asserterArray,
+		);
+
+		return result;
+	}
+
 	public async update(documents: (Pick<VirtualDocument.Types.Dto, "id"> & Partial<VirtualDocument.Types.Dto>)[]): Promise<void> {
 		const columns: Record<keyof VirtualDocument.Types.Dto, IColumnConfig<unknown>> = {
 			id: {

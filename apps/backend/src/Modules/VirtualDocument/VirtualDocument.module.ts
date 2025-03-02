@@ -4,6 +4,7 @@ import { AssociateStoredDocumentWithVirtualDocumentAction } from "Modules/Virtua
 import { CreateNewVirtualDocumentAction } from "Modules/VirtualDocument/Actions/CreateNewVirtualDocumentAction";
 import { GetVirtualDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsAction";
 import { GetVirtualDocumentsWithMostRecentStoredDocumentsAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentsWithMostRecentStoredDocumentsAction";
+import { GetVirtualDocumentWithStoredDocumentEntriesAction } from "Modules/VirtualDocument/Actions/GetVirtualDocumentWithStoredDocumentEntriesAction";
 import { UploadingOfFileToExistingDocumentAction } from "Modules/VirtualDocument/Actions/UploadingOfFileToExistingDocumentAction";
 import { UploadingOfNewDocumentAction } from "Modules/VirtualDocument/Actions/UploadingOfNewDocumentAction";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
@@ -28,6 +29,7 @@ import { VirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/
 		GetVirtualDocumentsAction.Action,
 		UploadingOfNewDocumentAction.Action,
 		UploadingOfFileToExistingDocumentAction.Action,
+		GetVirtualDocumentWithStoredDocumentEntriesAction.Action,
 	],
 	exports: [
 		CreateNewVirtualDocumentAction.Action,
@@ -36,6 +38,7 @@ import { VirtualDocumentStoredDocumentsProvider } from "Modules/VirtualDocument/
 		GetVirtualDocumentsAction.Action,
 		UploadingOfNewDocumentAction.Action,
 		UploadingOfFileToExistingDocumentAction.Action,
+		GetVirtualDocumentWithStoredDocumentEntriesAction.Action,
 	],
 })
 export class VirtualDocumentModule {}

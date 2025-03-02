@@ -1,14 +1,21 @@
 import { ApiProperty, ApiSchema } from "@nestjs/swagger";
 import { DateTime } from "luxon";
 
-export namespace CreateVirtualFolder {
-	@ApiSchema({ name: "CreateVirtualFolderParameters" })
+export namespace AddVirtualDocumentToVirtualFolder {
+	@ApiSchema({ name: "AddVirtualDocumentToVirtualFolderParameters" })
 	export class Parameters {
 		@ApiProperty({
-			description: "The name of the virtual folder to create",
+			description: "The ID of the virtual folder to add the virtual document to",
 			type: "string",
 		})
-		name!: string;
+		virtualFolderId!: string;
+
+		@ApiProperty({
+			description: "The IDs of the virtual documents to add to the virtual folder",
+			type: "string",
+			isArray: true,
+		})
+		virtualDocumentIds!: string[];
 	}
 
 	@ApiSchema({ name: "CreateVirtualFolderResponse" })

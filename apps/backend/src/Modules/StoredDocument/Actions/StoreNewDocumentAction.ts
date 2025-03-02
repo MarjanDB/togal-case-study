@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
-import { CheckForExistingStoredDocumentAction } from "Modules/StoredDocument/Actions/CheckForExistingStoredDocumentAction";
+import { CheckForExistingStoredDocumentByHashAction } from "Modules/StoredDocument/Actions/CheckForExistingStoredDocumentByHashAction";
 import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
 import { ITimeProvider } from "Providers/TimeProvider/Contracts/ITimeProvider";
@@ -9,8 +9,8 @@ export namespace StoreNewDocumentAction {
 	@Injectable()
 	export class Action {
 		public constructor(
-			@Inject(CheckForExistingStoredDocumentAction.Action)
-			private readonly checkForExistingStoredDocumentAction: CheckForExistingStoredDocumentAction.Action,
+			@Inject(CheckForExistingStoredDocumentByHashAction.Action)
+			private readonly checkForExistingStoredDocumentAction: CheckForExistingStoredDocumentByHashAction.Action,
 			@Inject(IStoredDocumentProvider.Interface)
 			private readonly storedDocumentProvider: IStoredDocumentProvider.Interface,
 			@Inject(IUniqueIdentifierProvider)

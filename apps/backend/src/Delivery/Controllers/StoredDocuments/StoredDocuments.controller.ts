@@ -11,7 +11,7 @@ export class StoredDocumentsController {
 		private readonly findStoredDocumentsBelongingToVirtualDocumentsAction: FindStoredDocumentsBelongingToVirtualDocumentsAction.Action,
 	) {}
 
-	@Get("get-stored-documents-for-virtual-documents")
+	@Get("get-stored-documents-for-virtual-document")
 	@ApiResponse({ status: 200, type: GetStoredDocumentsForVirtualDocument.Response })
 	async getStoredDocumentsForVirtualDocuments(
 		@Query() query: GetStoredDocumentsForVirtualDocument.GetParameters,

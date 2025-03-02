@@ -10,11 +10,15 @@ export namespace IVirtualFolderProvider {
 		abstract findByIds(ids: VirtualFolder.Types.IdType[]): Promise<VirtualFolder.Entity[]>;
 		abstract findAll(): Promise<VirtualFolder.Entity[]>;
 		abstract findAllWithAssociatedVirtualDocuments(): Promise<Types.VirtualFolderWithAssociatedVirtualDocumentsQuery[]>;
+		abstract findbyIdsWithAssociatedVirtualDocuments(
+			ids: VirtualFolder.Types.IdType[],
+		): Promise<Types.VirtualFolderWithAssociatedVirtualDocumentsQuery[]>;
+		abstract update(folders: (Pick<VirtualFolder.Types.Dto, "id"> & Partial<VirtualFolder.Types.Dto>)[]): Promise<void>;
 	}
 
 	export namespace Types {
 		export type VirtualFolderWithAssociatedVirtualDocumentsQuery = VirtualFolder.Types.Dto & {
-			virtual_document_id: string;
+			virtual_document_id: string | null;
 		};
 
 		export const VirtualFolderWithAssociatedVirtualDocumentsQuery = {

@@ -1,6 +1,7 @@
 import { Inject, NotFoundException } from "@nestjs/common";
 import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
 import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { IColumnConfig } from "pg-promise";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class VirtualFolderProvider implements IVirtualFolderProvider.Interface {
@@ -64,5 +65,55 @@ export class VirtualFolderProvider implements IVirtualFolderProvider.Interface {
 		);
 
 		return result;
+	}
+
+	public async findbyIdsWithAssociatedVirtualDocuments(
+		ids: VirtualFolder.Types.IdType[],
+	): Promise<IVirtualFolderProvider.Types.VirtualFolderWithAssociatedVirtualDocumentsQuery[]> {
+		const result = await this.database.query(
+			`
+			SELECT vf.*, vfvd.virtual_document_id
+			FROM virtual_folders vf
+			LEFT JOIN virtual_folders_virtual_documents vfvd ON vfvd.virtual_folder_id = vf.id
+			WHERE vf.id IN ($/ids:csv/)
+			ORDER BY vf.created_at DESC
+			`,
+			{ ids: ids },
+			IVirtualFolderProvider.Types.VirtualFolderWithAssociatedVirtualDocumentsQuery.asserterArray,
+		);
+
+		return result;
+	}
+
+	public async update(documents: (Pick<VirtualFolder.Types.Dto, "id"> & Partial<VirtualFolder.Types.Dto>)[]): Promise<void> {
+		const columns: Record<keyof VirtualFolder.Types.Dto, IColumnConfig<unknown>> = {
+			id: {
+				name: "id",
+				cnd: true,
+				cast: "uuid",
+			},
+			name: {
+				name: "name",
+				cast: "text",
+			},
+			created_at: {
+				name: "created_at",
+				cast: "timestamp without time zone",
+			},
+			updated_at: {
+				name: "updated_at",
+				cast: "timestamp without time zone",
+			},
+			deleted_at: {
+				name: "deleted_at",
+				cast: "timestamp without time zone",
+			},
+		};
+
+		// Naive implementation, but should work for this case
+		const props = Object.keys(documents[0]).filter((prop): prop is keyof VirtualFolder.Types.Dto => prop in columns);
+		const columnsSets = props.filter((prop) => prop !== "id").map((prop) => columns[prop]);
+
+		await this.database.update(documents, [columns["id"]], columnsSets, "virtual_documents");
 	}
 }

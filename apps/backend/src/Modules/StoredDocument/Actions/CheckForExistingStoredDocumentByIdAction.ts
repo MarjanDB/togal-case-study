@@ -2,16 +2,16 @@ import { Inject, Injectable } from "@nestjs/common";
 import { IStoredDocumentProvider } from "Modules/StoredDocument/Contracts/IStoredDocumentProvider";
 import { StoredDocument } from "Modules/StoredDocument/Entities/StoredDocument";
 
-export namespace CheckForExistingStoredDocumentAction {
+export namespace CheckForExistingStoredDocumentByIdAction {
 	@Injectable()
 	export class Action {
 		public constructor(
 			@Inject(IStoredDocumentProvider.Interface) private readonly storedDocumentProvider: IStoredDocumentProvider.Interface,
 		) {}
 
-		public async execute(hash: StoredDocument.Types.HashType): Promise<boolean> {
+		public async execute(id: StoredDocument.Types.IdType): Promise<boolean> {
 			try {
-				await this.storedDocumentProvider.findByHash(hash);
+				await this.storedDocumentProvider.findById(id);
 				return true;
 			} catch (_error) {
 				return false;

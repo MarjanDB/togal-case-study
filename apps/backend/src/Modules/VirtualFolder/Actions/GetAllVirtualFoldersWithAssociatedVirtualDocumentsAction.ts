@@ -3,13 +3,13 @@ import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocumen
 import { IVirtualFolderProvider } from "Modules/VirtualFolder/Contracts/IVirtualFolderProvider";
 import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
 
-export namespace GetVirtualFoldersWithAssociatedVirtualDocumentsAction {
+export namespace GetAllVirtualFoldersWithAssociatedVirtualDocumentsAction {
 	@Injectable()
 	export class Action {
 		public constructor(@Inject(IVirtualFolderProvider.Interface) private readonly virtualFolderProvider: IVirtualFolderProvider.Interface) {}
 
-		public async execute(ids: VirtualFolder.Types.IdType[]): Promise<Types.VirtualFolderWithAssociatedVirtualDocuments[]> {
-			const virtualFolders = await this.virtualFolderProvider.findbyIdsWithAssociatedVirtualDocuments(ids);
+		public async execute(): Promise<Types.VirtualFolderWithAssociatedVirtualDocuments[]> {
+			const virtualFolders = await this.virtualFolderProvider.findAllWithAssociatedVirtualDocuments();
 
 			const virtualFolderDefinitions: Record<VirtualFolder.Types.IdType, VirtualFolder.Entity> = {};
 			const associatedVirtualDocuments: Record<VirtualFolder.Types.IdType, VirtualDocument.Types.IdType[]> = {};
