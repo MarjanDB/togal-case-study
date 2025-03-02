@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { CreateVirtualFolder, GetVirtualFolders } from "@togal-case-study/contracts";
+import { CreateVirtualFolder } from "Delivery/Contracts/Endpoints/CreateVirtualFolder";
+import { GetVirtualFolders } from "Delivery/Contracts/Endpoints/GetVirtualFolders";
 import { CreateVirtualFolderAction } from "Modules/VirtualFolder/Actions/CreateVirtualFolderAction";
 import { GetVirtualFoldersWithAssociatedVirtualDocumentsAction } from "Modules/VirtualFolder/Actions/GetVirtualFoldersWithAssociatedVirtualDocumentsAction";
 
@@ -15,7 +16,7 @@ export class VirtualFoldersController {
 
 	@Get("all-folders")
 	@ApiOperation({ summary: "Get all virtual folders" })
-	@ApiResponse({ status: 200, type: GetVirtualFolders.Response, isArray: true })
+	@ApiResponse({ status: 200, type: GetVirtualFolders.Response })
 	public async getVirtualFolders(): Promise<GetVirtualFolders.Response> {
 		const virtualFolders = await this.getVirtualFoldersAction.execute();
 

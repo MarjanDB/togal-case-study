@@ -1,17 +1,18 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"module": "ESNext",
+		"module": "CommonJS",
 		"target": "ESNext",
 		"moduleResolution": "node10",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
+		"resolveJsonModule": false,
 		"baseUrl": "src",
-		"rootDir": ".",
+		"rootDir": "src",
 		"outDir": "dist",
 		"types": ["node", "multer", "vite/client", "vitest/globals"]
 	},
-	"include": ["src/**/*.ts"],
+	"include": ["src"],
 	"references": [
 		{
 			"path": "./tsconfig.app.json"

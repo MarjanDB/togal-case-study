@@ -49,10 +49,10 @@ export default [
 	prettier,
 	prettierConfig,
 	{
-		ignores: ["eslint.config.mjs", "**/dist/**", "dist/**"],
+		ignores: ["eslint.config.mjs", "**/dist/**", "dist/**", "out-tsc/**"],
 	},
 	{
-		files: ["vitest.workspace.ts"],
+		files: ["vitest.workspace.ts", "jest.config.ts", "vite.config.ts"],
 		languageOptions: {
 			parser: tseslint.parser,
 			parserOptions: {

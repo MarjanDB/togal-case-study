@@ -3,6 +3,6 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "out-tsc/tsconfig.tsbuildinfo"
 	},
-	"include": ["./src", "vite.config.ts"],
+	"include": ["src"],
 	"references": []
 }

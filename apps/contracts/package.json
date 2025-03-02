@@ -2,14 +2,14 @@
 	"name": "@togal-case-study/contracts",
 	"version": "0.0.1",
 	"private": true,
-	"type": "module",
-	"main": "./dist/index.js",
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.es.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"require": "./dist/index.js",
-			"import": "./dist/index.js"
+			"require": "./dist/index.cjs.js",
+			"import": "./dist/index.es.js"
 		},
 		"./package.json": "./package.json"
 	},
@@ -19,6 +19,7 @@
 		"@types/multer": "^1.4.12",
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.14.1",
-		"luxon": "^3.5.0"
+		"luxon": "^3.5.0",
+		"reflect-metadata": "^0.2.2"
 	}
 }

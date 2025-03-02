@@ -38,8 +38,8 @@ async function bootstrap(): Promise<void> {
 	Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 
-if (import.meta.env.PROD) {
-	bootstrap();
-}
+//if (import.meta.env.PROD) {
+bootstrap();
+//}
 
-export const viteNodeApp = prepare();
+//export const viteNodeApp = prepare();

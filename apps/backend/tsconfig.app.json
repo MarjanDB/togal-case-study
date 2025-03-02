@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"tsBuildInfoFile": "out-tsc/tsconfig.dist.tsbuildinfo"
 	},
+	"exclude": ["**/*.test.ts", "**/*.spec.ts"],
 	"references": [
 		{
 			"path": "../contracts/tsconfig.lib.json"

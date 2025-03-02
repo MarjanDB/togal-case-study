@@ -1,7 +1,8 @@
 import { Body, Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiConsumes, ApiResponse } from "@nestjs/swagger";
-import { CreateVirtualDocument, GetVirtualDocuments } from "@togal-case-study/contracts";
+import { CreateVirtualDocument } from "Delivery/Contracts/Endpoints/CreateVirtualDocument";
+import { GetVirtualDocuments } from "Delivery/Contracts/Endpoints/GetVirtualDocuments";
 import { DateTime } from "luxon";
 import { FindMostRecentStoredDocumentBelongingToVirtualDocuments } from "Modules/StoredDocument/Actions/FindMostRecentStoredDocumentBelongingToVirtualDocumentsAction";
 import { StoredDocumentEntry } from "Modules/StoredDocument/Entities/StoredDocumentEntry";

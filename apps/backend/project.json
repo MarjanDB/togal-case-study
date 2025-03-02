@@ -2,14 +2,14 @@
 	"name": "backend",
 	"projectType": "application",
 	"sourceRoot": "apps/backend/src",
-	"implicitDependencies": ["contracts"],
 	"targets": {
 		"build": {
 			"executor": "@nx/js:tsc",
 			"options": {
 				"main": "apps/backend/src/main.ts",
 				"tsConfig": "apps/backend/tsconfig.app.json",
-				"outputPath": "apps/backend/dist"
+				"outputPath": "apps/backend/dist",
+				"generatePackageJson": false
 			},
 			"dependsOn": [
 				{
@@ -17,6 +17,13 @@
 					"target": "build"
 				}
 			]
+		},
+		"serve": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "nodemon --exec ts-node -r tsconfig-paths/register src/main.ts",
+				"cwd": "apps/backend"
+			}
 		},
 		"typecheck": {
 			"executor": "@nx/js:tsc",

@@ -26,13 +26,18 @@ export default defineConfig({
 		lib: {
 			entry: "./src/index.ts",
 			name: "contracts",
-			fileName: (format) => `contracts.${format}.js`,
+			fileName: (format) => `index.${format}.js`,
+			formats: ["es", "cjs"],
 		},
 		outDir: "dist",
 		emptyOutDir: true,
 		reportCompressedSize: true,
-		commonjsOptions: {
-			transformMixedEsModules: true,
+		rollupOptions: {
+			external: ["class-transformer", "class-transformer/storage"],
+			output: {
+				manualChunks: undefined,
+				inlineDynamicImports: true,
+			},
 		},
 	},
 	test: {
