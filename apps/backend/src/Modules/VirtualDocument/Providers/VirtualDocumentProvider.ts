@@ -2,6 +2,7 @@ import { Inject, NotFoundException } from "@nestjs/common";
 import { IVirtualDocumentProvider } from "Modules/VirtualDocument/Contracts/IVirtualDocumentProvider";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
 import { VirtualFolder } from "Modules/VirtualFolder/Entities/VirtualFolder";
+import { IColumnConfig } from "pg-promise";
 import { IPostgresDatabaseProvider } from "Providers/PostgresqlProvider/Contracts/IPostgresDatabaseProvider";
 
 export class VirtualDocumentProvider implements IVirtualDocumentProvider.Interface {
@@ -55,5 +56,45 @@ export class VirtualDocumentProvider implements IVirtualDocumentProvider.Interfa
 		);
 
 		return result;
+	}
+
+	public async update(documents: (Pick<VirtualDocument.Types.Dto, "id"> & Partial<VirtualDocument.Types.Dto>)[]): Promise<void> {
+		const columns: Record<keyof VirtualDocument.Types.Dto, IColumnConfig<unknown>> = {
+			id: {
+				name: "id",
+				cnd: true,
+				cast: "uuid",
+			},
+			name: {
+				name: "name",
+				cast: "text",
+			},
+			description: {
+				name: "description",
+				cast: "text",
+			},
+			created_at: {
+				name: "created_at",
+				cast: "timestamp without time zone",
+			},
+			updated_at: {
+				name: "updated_at",
+				cast: "timestamp without time zone",
+			},
+			deleted_at: {
+				name: "deleted_at",
+				cast: "timestamp without time zone",
+			},
+			type: {
+				name: "type",
+				cast: "text",
+			},
+		};
+
+		// Naive implementation, but should work for this case
+		const props = Object.keys(documents[0]).filter((prop): prop is keyof VirtualDocument.Types.Dto => prop in columns);
+		const columnsSets = props.filter((prop) => prop !== "id").map((prop) => columns[prop]);
+
+		await this.database.update(documents, [columns["id"]], columnsSets, "virtual_documents");
 	}
 }

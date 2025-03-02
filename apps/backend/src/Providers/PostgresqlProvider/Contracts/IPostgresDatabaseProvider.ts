@@ -14,5 +14,13 @@ export abstract class IPostgresDatabaseProvider {
 		table: string,
 	): Promise<ResponseType>;
 
+	// ColumnSet internals are leaking here because of the way the pg-promise works
+	abstract update<ResponseType = void>(
+		data: ResponseType[],
+		conditionColumns: Array<string | IColumnConfig<ResponseType> | Column<ResponseType>>,
+		toUpdateColumns: Array<string | IColumnConfig<ResponseType> | Column<ResponseType>>,
+		table: string,
+	): Promise<ResponseType>;
+
 	abstract shutdown(): Promise<void>;
 }

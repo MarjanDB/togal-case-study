@@ -13,6 +13,7 @@ export namespace IVirtualDocumentProvider {
 		abstract findForVirtualFolder(
 			folderIds: VirtualFolder.Types.IdType[],
 		): Promise<Types.VirtualDocumentWithMostRecentStoredDocument.QueryResult[]>;
+		abstract update(document: (Pick<VirtualDocument.Types.Dto, "id"> & Partial<VirtualDocument.Types.Dto>)[]): Promise<void>;
 	}
 
 	export namespace Types {

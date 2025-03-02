@@ -41,7 +41,47 @@ export class PostgresqlDatabaseProvider implements IPostgresDatabaseProvider {
 		return this.query(sql);
 	}
 
+	public async update<ResponseType>(
+		data: ResponseType[],
+		conditionColumns: Array<string | IColumnConfig<ResponseType> | Column<ResponseType>>,
+		toUpdateColumns: Array<string | IColumnConfig<ResponseType> | Column<ResponseType>>,
+		table: string,
+	): Promise<ResponseType> {
+		const allSets = new this.pool.$config.pgp.helpers.ColumnSet([...conditionColumns, ...toUpdateColumns], {
+			table: table,
+		});
+
+		const rawNames = conditionColumns.filter(isColumnString);
+		const columnConfigs = conditionColumns.filter(isColumnConfig);
+		const columns = conditionColumns.filter(isColumn);
+
+		// Naive implementation, but should work for this case
+		const rawConditions = rawNames.map((name) => `t.${name.substring(1)} = v.${name.substring(1)}`);
+		const columnConfigConditions = columnConfigs.map((columnConfig) => `t.${columnConfig.name} = v.${columnConfig.name}`);
+		const columnConditions = columns.map((column) => `t.${column.escapedName} = v.${column.escapedName}`);
+
+		const conditions = [...rawConditions, ...columnConfigConditions, ...columnConditions];
+
+		const sql = this.pool.$config.pgp.helpers.update(data, allSets) + "WHERE " + conditions.join(" AND ");
+
+		return this.query(sql);
+	}
+
 	public async shutdown(): Promise<void> {
 		return this.pool.$pool.end();
 	}
+}
+
+function isColumnString(column: string | IColumnConfig<unknown> | Column<unknown>): column is string {
+	return typeof column === "string";
+}
+
+function isColumnConfig<ResponseType>(
+	column: string | IColumnConfig<ResponseType> | Column<ResponseType>,
+): column is IColumnConfig<ResponseType> {
+	return typeof column === "object" && "name" in column && !("prop" in column);
+}
+
+function isColumn<ResponseType>(column: string | IColumnConfig<ResponseType> | Column<ResponseType>): column is Column<ResponseType> {
+	return typeof column === "object" && column !== null && "name" in column && "type" in column && "cast" in column;
 }
