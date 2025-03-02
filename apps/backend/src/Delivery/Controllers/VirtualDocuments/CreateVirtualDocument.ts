@@ -1,5 +1,6 @@
 import { ApiProperty, ApiSchema } from "@nestjs/swagger";
 import { DateTime } from "luxon";
+import { FileSystemStoredFile, IsFile } from "nestjs-form-data";
 
 export namespace CreateVirtualDocument {
 	@ApiSchema({ name: "CreateVirtualDocumentRequest" })
@@ -28,7 +29,8 @@ export namespace CreateVirtualDocument {
 			type: "string",
 			format: "binary",
 		})
-		file!: Express.Multer.File;
+		@IsFile()
+		file!: FileSystemStoredFile;
 	}
 
 	@ApiSchema({ name: "CreateVirtualDocumentResponse" })

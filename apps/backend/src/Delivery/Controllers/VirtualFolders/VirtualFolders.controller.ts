@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { CreateVirtualFolder } from "Delivery/Contracts/Endpoints/CreateVirtualFolder";
-import { GetVirtualFolders } from "Delivery/Contracts/Endpoints/GetVirtualFolders";
+import { CreateVirtualFolder } from "Delivery/Controllers/VirtualFolders/CreateVirtualFolder";
+import { GetVirtualFolders } from "Delivery/Controllers/VirtualFolders/GetVirtualFolders";
 import { CreateVirtualFolderAction } from "Modules/VirtualFolder/Actions/CreateVirtualFolderAction";
 import { GetVirtualFoldersWithAssociatedVirtualDocumentsAction } from "Modules/VirtualFolder/Actions/GetVirtualFoldersWithAssociatedVirtualDocumentsAction";
 

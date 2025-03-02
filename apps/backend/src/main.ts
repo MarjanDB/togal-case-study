@@ -21,12 +21,16 @@ async function prepare(): Promise<INestApplication> {
 		new ValidationPipe({
 			enableDebugMessages: true,
 			disableErrorMessages: false,
-			forbidNonWhitelisted: true,
-			forbidUnknownValues: true,
-			whitelist: true,
+			forbidUnknownValues: false,
+			whitelist: false,
 			transform: true,
+			exceptionFactory: (errors): any | undefined => {
+				return errors;
+			},
 		}),
 	);
+
+	app.enableShutdownHooks();
 
 	return app;
 }
