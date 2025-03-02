@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
-import { ApiBody, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { CreateVirtualFolder } from "Delivery/Contracts/Endpoints/CreateVirtualFolder";
 import { GetVirtualFolders } from "Delivery/Contracts/Endpoints/GetVirtualFolders";
 import { CreateVirtualFolderAction } from "Modules/VirtualFolder/Actions/CreateVirtualFolderAction";
@@ -35,7 +35,6 @@ export class VirtualFoldersController {
 
 	@Post("create-folder")
 	@ApiOperation({ summary: "Create a virtual folder" })
-	@ApiBody({ type: CreateVirtualFolder.Parameters })
 	@ApiResponse({ status: 200, type: CreateVirtualFolder.Response })
 	public async createVirtualFolder(@Body() body: CreateVirtualFolder.Parameters): Promise<CreateVirtualFolder.Response> {
 		const virtualFolder = await this.createVirtualFolderAction.execute(body.name);

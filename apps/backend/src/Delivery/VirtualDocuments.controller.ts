@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBody, ApiConsumes, ApiResponse } from "@nestjs/swagger";
+import { ApiConsumes, ApiResponse } from "@nestjs/swagger";
 import { CreateVirtualDocument } from "Delivery/Contracts/Endpoints/CreateVirtualDocument";
 import { GetVirtualDocuments } from "Delivery/Contracts/Endpoints/GetVirtualDocuments";
 import { DateTime } from "luxon";
@@ -19,8 +19,7 @@ export class VirtualDocumentsController {
 	) {}
 
 	@Post("get-documents")
-	@ApiBody({ type: GetVirtualDocuments.Parameters })
-	@ApiResponse({ type: GetVirtualDocuments.Response })
+	@ApiResponse({ status: 200, type: GetVirtualDocuments.Response })
 	async getStoredDocumentsForVirtualDocuments(@Body() body: GetVirtualDocuments.Parameters): Promise<GetVirtualDocuments.Response> {
 		const virtualDocumentIds: VirtualDocument.Types.IdType[] = body.virtualDocumentIds as VirtualDocument.Types.IdType[];
 
@@ -64,9 +63,8 @@ export class VirtualDocumentsController {
 
 	@Post("upload-document")
 	@UseInterceptors(FileInterceptor("file"))
-	@ApiBody({ type: CreateVirtualDocument.Parameters })
 	@ApiConsumes("multipart/form-data")
-	@ApiResponse({ type: CreateVirtualDocument.Response })
+	@ApiResponse({ status: 200, type: CreateVirtualDocument.Response })
 	async uploadDocument(
 		@Body() body: CreateVirtualDocument.Parameters,
 		@UploadedFile() file: Express.Multer.File,

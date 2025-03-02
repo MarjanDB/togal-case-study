@@ -1,7 +1,8 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiSchema } from "@nestjs/swagger";
 import { DateTime } from "luxon";
 
 export namespace GetVirtualFolders {
+	@ApiSchema({ name: "GetVirtualFoldersResponse" })
 	export class Response {
 		@ApiProperty({
 			description: "The virtual folders",
@@ -10,6 +11,7 @@ export namespace GetVirtualFolders {
 		virtualFolders!: VirtualFolder[];
 	}
 
+	@ApiSchema({ name: "GetVirtualFoldersResponse VirtualFolder" })
 	export class VirtualFolder {
 		@ApiProperty({
 			description: "The ID of the virtual folder",

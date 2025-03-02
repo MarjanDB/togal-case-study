@@ -31,6 +31,7 @@ export namespace CreateVirtualDocument {
 		file!: Express.Multer.File;
 	}
 
+	@ApiSchema({ name: "CreateVirtualDocumentResponse" })
 	export class Response {
 		@ApiProperty({
 			description: "The ID of the virtual document",

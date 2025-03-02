@@ -1,8 +1,9 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiSchema } from "@nestjs/swagger";
 import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 import { DateTime } from "luxon";
 
 export namespace GetStoredDocumentsForVirtualDocument {
+	@ApiSchema({ name: "GetStoredDocumentsForVirtualDocumentParameters" })
 	export class GetParameters {
 		@ApiProperty({
 			description: "The ID of the virtual document to get stored documents for",
@@ -14,6 +15,7 @@ export namespace GetStoredDocumentsForVirtualDocument {
 		virtualDocumentId!: string;
 	}
 
+	@ApiSchema({ name: "GetStoredDocumentsForVirtualDocumentResponse" })
 	export class Response {
 		@ApiProperty({
 			description: "The stored documents for the virtual document",
@@ -22,6 +24,7 @@ export namespace GetStoredDocumentsForVirtualDocument {
 		storedDocuments!: StoredDocumentForVirtualDocument[];
 	}
 
+	@ApiSchema({ name: "GetStoredDocumentsForVirtualDocumentResponse StoredDocumentForVirtualDocument" })
 	export class StoredDocumentForVirtualDocument {
 		@ApiProperty({
 			description: "The ID of the stored document",

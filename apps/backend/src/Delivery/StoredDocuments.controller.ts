@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Query } from "@nestjs/common";
-import { ApiOperation, ApiQuery, ApiResponse } from "@nestjs/swagger";
+import { ApiResponse } from "@nestjs/swagger";
 import { GetStoredDocumentsForVirtualDocument } from "Delivery/Contracts/Endpoints/GetStoredDocumentsForVirtualDocument";
 import { FindStoredDocumentsBelongingToVirtualDocumentsAction } from "Modules/StoredDocument/Actions/FindStoredDocumentsBelongingToVirtualDocumentsAction";
 import { VirtualDocument } from "Modules/VirtualDocument/Entities/VirtualDocument";
@@ -12,9 +12,7 @@ export class StoredDocumentsController {
 	) {}
 
 	@Get("get-stored-documents-for-virtual-documents")
-	@ApiOperation({ summary: "Get stored documents for virtual documents" })
-	@ApiQuery({ type: GetStoredDocumentsForVirtualDocument.GetParameters })
-	@ApiResponse({ type: GetStoredDocumentsForVirtualDocument.Response })
+	@ApiResponse({ status: 200, type: GetStoredDocumentsForVirtualDocument.Response })
 	async getStoredDocumentsForVirtualDocuments(
 		@Query() query: GetStoredDocumentsForVirtualDocument.GetParameters,
 	): Promise<GetStoredDocumentsForVirtualDocument.Response> {

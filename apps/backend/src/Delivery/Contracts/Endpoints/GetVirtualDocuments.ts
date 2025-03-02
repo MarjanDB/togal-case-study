@@ -15,6 +15,7 @@ export namespace GetVirtualDocuments {
 		virtualDocumentIds!: string[];
 	}
 
+	@ApiSchema({ name: "GetVirtualDocumentsResponse" })
 	export class Response {
 		@ApiProperty({
 			description: "The virtual documents for the virtual folder",
@@ -24,6 +25,7 @@ export namespace GetVirtualDocuments {
 		virtualDocuments!: VirtualDocument[];
 	}
 
+	@ApiSchema({ name: "GetVirtualDocumentsResponse MostRecentStoredDocument" })
 	export class MostRecentStoredDocument {
 		@ApiProperty({
 			description: "The ID of the stored document",
@@ -44,6 +46,7 @@ export namespace GetVirtualDocuments {
 		originalFileName!: string;
 	}
 
+	@ApiSchema({ name: "GetVirtualDocumentsResponse VirtualDocument" })
 	export class VirtualDocument {
 		@ApiProperty({
 			description: "The ID of the virtual document",
