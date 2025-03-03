@@ -52,7 +52,7 @@ describe("StoredDocumentProvider", () => {
 			"hash" as StoredDocument.Types.HashType,
 			DateTime.now().toUTC(),
 			"test.txt",
-			new Uint8Array(Buffer.from("test")),
+			Buffer.from("test"),
 		);
 
 		await provider.create(document);
@@ -84,14 +84,14 @@ describe("StoredDocumentProvider", () => {
 			"hash1" as StoredDocument.Types.HashType,
 			DateTime.now().toUTC(),
 			"test1.pdf",
-			new Uint8Array(Buffer.from("test1")),
+			Buffer.from("test1"),
 		);
 		const storedDocument2 = new StoredDocument.Entity(
 			identifierProvider.getUniqueIdentifier<StoredDocument.Types.IdType>(),
 			"hash2" as StoredDocument.Types.HashType,
 			DateTime.now().plus({ seconds: 20 }).toUTC(),
 			"test2.pdf",
-			new Uint8Array(Buffer.from("test2")),
+			Buffer.from("test2"),
 		);
 
 		await provider.create(storedDocument1);

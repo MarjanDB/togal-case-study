@@ -1,109 +1,163 @@
-# TogalCaseStudy
+# Getting it to run
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Prerequisites
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+- Docker
+- pnpm
+- Make (but not required if you just manually run the commands)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Setting up
 
-## Generate a library
+Install dependencies:
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+```bash
+pnpm i
 ```
 
-## Run tasks
+Starting the database:
 
-To build the library use:
-
-```sh
-npx nx build pkg1
+```bash
+make up
 ```
 
-To run any task with Nx use:
+Running backend:
 
-```sh
-npx nx <target> <project-name>
+```bash
+pnpm nx serve backend
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+Running frontend:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
+```bash
+pnpm nx dev frontend
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+There's also a few tests for BE if you want to run them:
 
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+```bash
+pnpm nx run backend:test
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+##
 
-```sh
-npx nx sync:check
+Possible issue when running frontend / backend / tests:
+
+```bash
+ NX   Failed to process project graph.
+
+An error occurred while processing files for the @nx/eslint/plugin plugin (Defined at nx.json#plugins[1])
+.
+  - eslint.config.mjs: Key "rules": Key "import/no-unresolved": Could not find plugin "import" in configuration.
+
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+If you encounter this, run the following command before trying the failing command again:
 
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```bash
+pnpm nx reset
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+## Forewarning
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+I had a lot of issues with NX / Bundlers / Compilers / etc.
+The `Failed to process project graph.` is one of these issues which I just decided to never even bother figuring out how to fix.
+There were many others which were much more problematic.
+I spent the majority of my time just trying to get things to run, and not actually developing anything.
+It was like I was walking around the house and stubbing my toe on every corner.
+You might spot some dead configs or the entire contracts project (under the wrong apps project directory, but ignore that), which I just couldn't get to work.
+As a result, a lot of the code is what it is.
 
-### Step 2
+What does this mean?
 
-Use the following command to configure a CI workflow for your workspace:
+- Barebone BE, but not as much as FE
+- Pretty much no tests for BE
+- Barebone FE (no tests of course) - only file uploading and listing is implemented
+- Edge cases are barely covered
+- Barely any API parameter validation (it is setup though, endpoints just need to be decorated with the appropriate decorators)
+- A mess of a codebase, all things considered
+- No docker builds
+- What even is DRY? (certainly doesn't exist in this codebase)
 
-```sh
-npx nx g ci-workflow
-```
+Hopefully, it's not as bad as I think it is.
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+There's a few more additional notes at the end discussing some design decisions and improvements that could be made.
 
-## Install Nx Console
+## How to use
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+There is a database dump present under migrations which should run on database startup, so once you have everything up and running, you can navigate to the following [URL](http://localhost:3000/virtualDocument/01955938-2297-736a-8245-940a375eca9c) to play around a bit with the virtual document.
+It should look like this:
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+![FE Picture](./resources/fe-picture.png)
 
-## Useful links
+Clicking on any of the listed files will download it.
+Clicking on the upload additional document will open a file picker to upload a file.
+There's a file size limit of ~1MB, but there's a chance it might still fail regardless (there's some issue with how the buffer gets handled / escaped when storing to the DB).
+Sadly, this is all I got done for FE. But hopefully, this single one should be enough to show that folder navigation wouldn't be that far off.
 
-Learn more:
+---
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+You can also play around with the BE API directly on the [URL](http://localhost:3001/docs).
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Design Decisions
+
+One thing that might immediately make you go hmmmm is the database schema.
+The next thing would probably be the storage of files in the DB.
+
+### Database Schema
+
+![Database Schema](./resources/db-schema.png)
+
+My guess is that the most common approach developers would take here would be to have a 1:N relationship between all these tables (VirtualFolder, VirtualDocument, StoredDocument).
+
+This would result in a way more simpler schema, and interactions in the codebase as well.
+The reason I went with a N:N relationship was because I wanted to leave the door open for more flexibility, like a single file being shared across multiple virtual documents.
+It's entirely possible these concerns are unwarranted or maybe even detremental to the overall design, but that's how I went with it.
+
+Also, it's highly likely that users would want to be able to put folders into other folders, or see virtual documents on their own at the top level without them being in their own folder.
+Some approaches that could be taken would be virtual folders referencing themselves (probably really bad idea), or storing "paths" in the folders themselves, and resolving them on the application level.
+Files being present at the top level could be solved quite simply, by just having a top level folder that's hidden from users.
+
+### File Storage
+
+Now, I went with storing the files in the DB for the sake of auditability.
+While they certainly could have been stored on the file system or any other storage solution, this is how I went at it (my guess is that if the government is your client, you'd need to be auditable).
+But yeah, the most common approach here would have been to just store them outside the database on the filesystem when developing locally, or storing it to some online storage solution like AWS S3.
+
+### Input parameter validation
+
+There's barely any validation of input parameters.
+There are some basic checks here and there, such as making sure that a file is being uploaded to a Virtual Document that actually exists.
+But for the most part, the input parameters are not validated.
+Relating to this, there could be better file checks outside of just the file size one.
+Specifically, mime checking could be added while the file is still being uploaded, immediatelly aborting if the file being uploaded is not something we can accept... though, given this is just a regular file sharing service, it might not even be that relevant.
+
+### (Ab)usage of Typescript Namespaces
+
+This is how I personally like to structure my code.
+I wrap logically related classes / types / functions under a single namespace.
+This allows me to express multiple concerns under a common namespace, without poluting the entier codebase with types and classes that are only really relevant inside a particular module.
+It's still being poluted, just not as much.
+
+### Controller / Action / Provider
+
+This is another personal preference, thought I'm still iterating a bit on it.
+I have a generic provider of some external I/O, which I then wrap in a module scoped provider (see StoredDocumentProvider.ts).
+This allows me to add a layer of abstraction between the DB and code that uses it, which comes in handy when writing tests (since you can just provide your own instance of the provider that does things differently, without having to rely on mocking everything in existence).
+Next are actions, which are essentially just be small units of work that can be done.
+These are also what are exposed outside the module. Though, I'm beginning to think this approach might need some more iterating.
+Finally, controllers make use of these actions and use their outputs to fulfull the endpoint contract.
+All these layers between the internals and the endpoint implementation allow for easier development without having to worry that the slightest change might break everything.
+
+### DB transactions and fault tolerance
+
+Currently, BE does not use any transactions.
+I did not bother adding. But this means that any issue in the middle of a business process can leave the database in a partial state, like a Virtual Document without any Stored Document.
+A transaction would ensure that the entire process is executed atomically, or not at all.
+Of course, this only works when all the operations are executed within the same service.
+More distributed systems would require a different approach.
+
+### Pagination
+
+I did not implement any pagination.
+I did, however, implement some things that would allow for it.
+For example, IDs are generated using UUID v7, which allows for sorting of the UUIDs and being able to implement stable pagination using cursors.
