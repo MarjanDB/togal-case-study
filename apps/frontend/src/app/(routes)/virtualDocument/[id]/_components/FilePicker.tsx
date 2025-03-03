@@ -6,6 +6,7 @@ const enum FilePickerMode {
 	Uploading = "uploading",
 }
 
+// Handling failed upload would also be a good next step
 const enum FilePickerAction {
 	Picked = "picked",
 	DismissedPickedFile = "dismissedPickedFile",
@@ -82,17 +83,17 @@ export default function FilePickerComponent({ onUpload }: FilePickerProps) {
 	);
 	const displayForPickedNotUploaded = (
 		<div className="flex flex-row w-full justify-between">
-			<div className="flex flex-row justify-start">
+			<div className="flex flex-row">
 				<button
-					className="bg-red-400 rounded-md px-4 text-white"
+					className="bg-red-400 rounded-md px-4 text-white shrink-0"
 					onClick={() => dispatch({ type: FilePickerAction.DismissedPickedFile, file: null })}
 				>
 					X
 				</button>
-				<p className="text-gray-600 text-sm my-auto mx-2">{state.file?.name}</p>
+				<p className="text-gray-600 text-sm my-auto mx-2 truncate">{state.file?.name}</p>
 			</div>
 			<button
-				className="bg-blue-400 rounded-md px-4 py-2 text-white"
+				className="bg-blue-400 rounded-md px-4 py-2 text-white flex-auto shrink-0"
 				onClick={() => dispatch({ type: FilePickerAction.Upload, file: state.file })}
 			>
 				Upload

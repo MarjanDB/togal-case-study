@@ -49,6 +49,9 @@ export default function VirtualDocumentComponent(params: { id: string }) {
 			file,
 		});
 
+		// Above API call could fail, and we'd have to handle that using some kind of onError callback exposed
+		// from file picker that wouldn't reset the picked file, but allow another attempt at uploading
+
 		setStoredDocuments([...(storedDocuments ?? []), storedDocumentEntry]);
 
 		const currentVirtualDocument = virtualDocument;
@@ -83,7 +86,7 @@ export default function VirtualDocumentComponent(params: { id: string }) {
 
 	return (
 		<div className="bg-gray-200 rounded-md flex">
-			<div className="flex-col min-w-96">
+			<div className="flex-col min-w-96 max-w-96">
 				<div className="flex-col mx-6 my-4">
 					<h2 className="text-2xl font-bold">{virtualDocument.name}</h2>
 				</div>
